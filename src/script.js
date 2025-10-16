@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-
+/// modal 
 const modal = document.getElementById('course-modal');
 const cardBtn = document.querySelector('.card-btn');
 const closeModal = document.querySelector('.close-modal');
@@ -41,6 +41,7 @@ window.addEventListener('click', function(event) {
     }
 });
 
+/// hamburger
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
@@ -48,5 +49,25 @@ hamburger.addEventListener('click', function() {
     hamburger.classList.toggle('active');
     navMenu.classList.toggle('active');
 });
+
+//// form-contact - procesa 
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
     
+    document.querySelectorAll('.error').forEach(error => {
+        error.style.display = 'none';
+    });
+    
+
+    document.getElementById('successMessage').style.display = 'none';
+    
+ 
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    
+})
+/// search bar
+
+
 });

@@ -33,8 +33,14 @@
                 <span></span>
             </div>
 
-            <button id="theme-toggle" class="theme-btn">Mainīt temu uz melno</button>
-            <input type="text" id="search-input" placeholder="Meklēt kursus...">
+            <div class = "search-box"></div>
+
+                <button id="theme-toggle" class="theme-btn">Mainīt temu uz melno</button>
+                <input type="text" id="input-box" placeholder="Meklēt..." autocomplete="off">
+                <button>Meklēt</button>
+            </div>
+
+            <div class="result-box"></div>
         </div>
 
     </header>
@@ -44,21 +50,32 @@
     <main>
         <section id="home" class="hero">
             <div class="container">
-                <h2>Gatavojies eksāmenam ar profesionāliem skolotājiem</h2>
-                <p>Mūsu matemātikas kursi 12. klasei palīdzēs apgūt visu nepieciešamo eksāmena veiksmīgai nokārtošanai. Mēs piedāvājam gan teoriju, gan praktiskos uzdevumus.</p>
+                <h2>Gatavojies eksāmenam ar intersantiem uzdevumiem</h2>
+                <p>Mūsu kursi palīdzēs apgūt visu nepieciešamo. Mēs piedāvājam gan teoriju, gan praktiskos uzdevumus.</p>
             </div>
         </section>
 
-        <div class="container main-content">
+        <div class="container">
+            <h2>Mūsu kursi</h2>
             <section class="courses">
-                <h2>Mūsu kursi</h2>
-
-                    <div class="card">
-                        <img src="https://tse1.mm.bing.net/th/id/OIP.71tCFrqJpvyanYg1qlLxFQHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Algebra">
-                        <h3>12.klase</h3>
-                        <p> Šis kurss ietver visu nepieciešamo algebru eksāmenam.</p>
-                        <button class="card-btn">Uzzīnat vairāk</button>
-                    </div>
+                <div class="card">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.71tCFrqJpvyanYg1qlLxFQHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Algebra">
+                    <h3>Algebra</h3>
+                    <p> Šis kurss ietver visu nepieciešamo algebru eksāmenam.</p>
+                    <button class="card-btn">Uzzīnat vairāk</button>
+                </div>
+                <div class="card">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.71tCFrqJpvyanYg1qlLxFQHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Algebra">
+                    <h3>Ģeomētrija</h3>
+                    <p> Šis kurss ietver visu nepieciešamo geomētrija eksāmenam.</p>
+                    <button class="card-btn">Uzzīnat vairāk</button>
+                </div>
+                <div class="card">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.71tCFrqJpvyanYg1qlLxFQHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Algebra">
+                    <h3>Trigonometrija</h3>
+                    <p> Šis kurss ietver visu nepieciešamo trigonometrijam eksāmenam.</p>
+                    <button class="card-btn">Uzzīnat vairāk</button>
+                </div>
                     
         <div id="course-modal" class="modal">
             <div class="modal-content">
@@ -95,5 +112,6 @@
 
 
     <script src="src/script.js"></script>
+    <script src="src/autocomplete.js"></script>
 </body>
 </html>

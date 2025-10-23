@@ -111,10 +111,42 @@ header .container {
 }
 
 /* search-bar*/
-#search-input{
-    width: 200px;
-    height: 20px;
+
+
+#input-box {
+    width: 250px;
+    height: 40px;
+    padding: 0 15px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: var(--transition);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    outline: none;
 }
+
+.result-box{
+    max-height: 100px;
+    overflow-y:scroll;
+}
+.result-box ul{
+    border-top: 1px solid #999;
+    padding:15px 10px;
+}
+
+.result-box ul li{
+    list-style: none;
+    border-radius: 3px;
+    padding: 15px 10px;
+    cursor: pointer;
+}
+
+.result-box ul li:hover{
+    background:#e9f3ff;
+}
+
+
 
 /* Dropdown */
 .dropdown {
@@ -330,8 +362,17 @@ header .container {
 }
 
 /* Cards */
+
+.courses{
+display: flex;
+flex-direction: row;
+}
+
 .card {
     background-color: var(--card-bg);
+    margin-top: 20px;
+    margin-right:20px ;
+    width: 600px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--shadow);
@@ -428,7 +469,7 @@ footer {
 label {
     display: block;
     margin-bottom: 8px;
-    color: #555;
+    color: var(--text-color);
     font-weight: 500;
 }
 
@@ -439,12 +480,19 @@ input, textarea {
     border-radius: 5px;
     font-size: 16px;
     transition: all 0.3s ease;
+    background-color: var(--card-bg);
+    color: var(--text-color);
 }
 
 input:focus, textarea:focus {
-    border-color: #4a90e2;
+    border-color: var(--primary-color);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+input.error-field, textarea.error-field {
+    border-color: #e74c3c;
+    animation: highlight 0.5s ease-in-out;
 }
 
 .error {
@@ -453,6 +501,10 @@ input:focus, textarea:focus {
     margin-top: 5px;
     display: none;
     animation: shake 0.5s ease-in-out;
+}
+
+.error.show {
+    display: block;
 }
 
 .success-message {
@@ -464,6 +516,43 @@ input:focus, textarea:focus {
     margin-top: 20px;
     display: none;
     animation: fadeIn 0.5s ease-in-out;
+}
+
+.success-message.show {
+    display: block;
+}
+
+.contact-section {
+    padding: 2rem 0;
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.contact-info h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.contact-item {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.contact-item h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+#message-submit{
+    width:300px;
 }
 
 
@@ -561,7 +650,7 @@ input:focus, textarea:focus {
         display: block;
     }
     
-    #search-bar{
+    #search-box{
         width: 20px;
         margin: 120px;
     }

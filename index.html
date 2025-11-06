@@ -55,44 +55,86 @@
             </div>
         </section>
 
-        <div class="container">
-            <h2>Mūsu kursi</h2>
-            <section class="courses">
-                <div class="card">
-                    <img src="https://tse1.mm.bing.net/th/id/OIP.71tCFrqJpvyanYg1qlLxFQHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Algebra">
-                    <h3>Algebra</h3>
-                    <p> Šis kurss ietver visu nepieciešamo algebru eksāmenam.</p>
-                    <button class="card-btn">Uzzīnat vairāk</button>
+        <section>
+            <div class="container">
+                <h2>Mūsu kursi</h2>
+                <section class="courses">
+                    <div class="card">
+                        <img src="https://tse1.mm.bing.net/th/id/OIP.71tCFrqJpvyanYg1qlLxFQHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Algebra">
+                        <h3>Algebra</h3>
+                        <p> Šis kurss ietver visu nepieciešamo algebru eksāmenam.</p>
+                        <button class="card-btn">Uzzīnat vairāk</button>
+                    </div>
+                    <div class="card">
+                        <img src="https://tse1.mm.bing.net/th/id/OIP.71tCFrqJpvyanYg1qlLxFQHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Algebra">
+                        <h3>Ģeomētrija</h3>
+                        <p> Šis kurss ietver visu nepieciešamo geomētrija eksāmenam.</p>
+                        <button class="card-btn2">Uzzīnat vairāk</button>
+                    </div>
+                </section>
+<!--window open-->
+                <div id="course-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h2>Algebra kurss</h2>
+                        <ul>
+                            <li>Algebras formulas</li>	
+                            <li>Varbūtību teorija</li>
+                            <li>Trigonometrija	</li>
+                            <li>Kvadrātnevienādības	</li>
+                            <li>Daļveida nevienādības</li>	
+                        </ul>
+                    </div>
                 </div>
-                <div class="card">
-                    <img src="https://tse1.mm.bing.net/th/id/OIP.71tCFrqJpvyanYg1qlLxFQHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Algebra">
-                    <h3>Ģeomētrija</h3>
-                    <p> Šis kurss ietver visu nepieciešamo geomētrija eksāmenam.</p>
-                    <button class="card-btn">Uzzīnat vairāk</button>
+
+                <div id="course-modal2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal2">&times;</span>
+                        <h2>Ģeomētrija</h2>
+                        <ul>          
+                            <li>Ģeometrijas formulas</li>		
+                            <li>Pitagora teorēma</li>	
+                            <li>Trigonometriskās sakarības taisnleņķa trijstūris</li>
+                            <li>Kosinusu teorēmas izmantošana</li>
+                            <li>Sinusu teorēmas izmantošana</li>
+                            <li>Leņķi un nogriežņi riņķa līnijā	</li>
+                            <li>Vektora projekcija un ģeometriskā projekcija</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="card">
-                    <img src="https://tse1.mm.bing.net/th/id/OIP.71tCFrqJpvyanYg1qlLxFQHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Algebra">
-                    <h3>Trigonometrija</h3>
-                    <p> Šis kurss ietver visu nepieciešamo trigonometrijam eksāmenam.</p>
-                    <button class="card-btn">Uzzīnat vairāk</button>
-                </div>
-                    
-        <div id="course-modal" class="modal">
+            </div>
+        
+        <section class="notes-section">
+            <div class="container">
+                <h2>Mani piezīmju kartiņas</h2>
+                <button id="create-note-btn" class="modal-btn">Izveidot jaunu kartiņu</button>  
+                <div class="notes-container" id="notes-container"></div>
+            </div>
+        </section>
+<!--notes-->
+        <div id="note-modal" class="modal">
             <div class="modal-content">
                 <span class="close-modal">&times;</span>
-                <h2>12. klases algebra kurss</h2>
-                <p>Šis kurss ietver visu nepieciešamo matematika eksāmenam:</p>
-                <ul>
-                    <li>Vienādojumu risināšana</li>
-                    <li>Nevienādības</li>
-                    <li>Funkcijas un to grafiki</li>
-                    <li>Eksāmena uzdevumu analīze</li>
-                </ul>
+                <h2 id="note-modal-title">Izveidot jaunu kartiņu</h2>
+                <form id="note-form">
+                    <div class="form-group">
+                        <label for="note-title">Nosaukums</label>
+                        <input type="text" id="note-title" placeholder="Ievadiet kartiņas nosaukumu" autocomplete="off">
+                        <div class="error" id="titleError">Lūdzu, ievadiet nosaukumu</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="note-content">Saturs </label>
+                        <textarea id="note-content" rows="6" placeholder="Ievadiet kartiņas saturu"></textarea>
+                        <div class="error" id="contentError">Lūdzu, ievadiet saturu</div>
+                    </div>
+                    
+                    <button type="submit" id="save-note-btn">Saglabāt</button>
+                    <input type="hidden" id="edit-note-id">
+                </form>
             </div>
         </div>
 
-            </section>
-        </div>
     </main>
 
 

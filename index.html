@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKursi</title>
+    <link rel="stylesheet" href="src/main.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1 class="logo">MKursi</h1>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Sākums</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Pakalpojumi</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-link">Teorija</a>
+                            <a href="#" class="dropdown-link">Praktiskie uzdevumi</a>
+                            <a href="#" class="dropdown-link">Eksāmena paraugi</a>
+                        </div>
+                    </li>
+                    <li><a href="par-mums.html" class="nav-link">Par mums</a></li>
+                    <li><a href="kontakti.html" class="nav-link">Kontakti</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class = "search-box"></div>
+
+                <button id="theme-toggle" class="theme-btn">Mainīt temu uz melno</button>
+                <input type="text" id="input-box" placeholder="Meklēt..." autocomplete="off">
+                <button>Meklēt</button>
+            </div>
+
+            <div class="result-box"></div>
+        </div>
+
+    </header>
+
+
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h2>Gatavojies eksāmenam ar intersantiem uzdevumiem</h2>
+                <p>Mūsu kursi palīdzēs apgūt visu nepieciešamo. Mēs piedāvājam gan teoriju, gan praktiskos uzdevumus.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2>Mūsu kursi</h2>
+                <section class="courses">
+                    <div class="card">
+                        <img src="https://tse1.mm.bing.net/th/id/OIP.71tCFrqJpvyanYg1qlLxFQHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Algebra">
+                        <h3>Algebra</h3>
+                        <p> Šis kurss ietver visu nepieciešamo algebru eksāmenam.</p>
+                        <button class="card-btn">Uzzīnat vairāk</button>
+                    </div>
+                    <div class="card">
+                        <img src="https://tse1.mm.bing.net/th/id/OIP.71tCFrqJpvyanYg1qlLxFQHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Algebra">
+                        <h3>Ģeomētrija</h3>
+                        <p> Šis kurss ietver visu nepieciešamo geomētrija eksāmenam.</p>
+                        <button class="card-btn2">Uzzīnat vairāk</button>
+                    </div>
+                </section>
+<!--window open-->
+                <div id="course-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h2>Algebra kurss</h2>
+                        <ul>
+                            <li>Algebras formulas</li>	
+                            <li>Varbūtību teorija</li>
+                            <li>Trigonometrija	</li>
+                            <li>Kvadrātnevienādības	</li>
+                            <li>Daļveida nevienādības</li>	
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="course-modal2" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal2">&times;</span>
+                        <h2>Ģeomētrija</h2>
+                        <ul>          
+                            <li>Ģeometrijas formulas</li>		
+                            <li>Pitagora teorēma</li>	
+                            <li>Trigonometriskās sakarības taisnleņķa trijstūris</li>
+                            <li>Kosinusu teorēmas izmantošana</li>
+                            <li>Sinusu teorēmas izmantošana</li>
+                            <li>Leņķi un nogriežņi riņķa līnijā	</li>
+                            <li>Vektora projekcija un ģeometriskā projekcija</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        
+        <section class="notes-section">
+            <div class="container">
+                <h2>Mani piezīmju kartiņas</h2>
+                <button id="create-note-btn" class="modal-btn">Izveidot jaunu kartiņu</button>  
+                <div class="notes-container" id="notes-container"></div>
+            </div>
+        </section>
+<!--notes-->
+        <div id="note-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="note-modal-title">Izveidot jaunu kartiņu</h2>
+                <form id="note-form">
+                    <div class="form-group">
+                        <label for="note-title">Nosaukums</label>
+                        <input type="text" id="note-title" placeholder="Ievadiet kartiņas nosaukumu" autocomplete="off">
+                        <div class="error" id="titleError">Lūdzu, ievadiet nosaukumu</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="note-content">Saturs </label>
+                        <textarea id="note-content" rows="6" placeholder="Ievadiet kartiņas saturu"></textarea>
+                        <div class="error" id="contentError">Lūdzu, ievadiet saturu</div>
+                    </div>
+                    
+                    <button type="submit" id="save-note-btn">Saglabāt</button>
+                    <input type="hidden" id="edit-note-id">
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2023 Matemātikas kursi 12. klasei. Visas tiesības aizsargātas.</p>
+                </div>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="src/script.js"></script>
+    <script src="src/autocomplete.js"></script>
+</body>
+</html>

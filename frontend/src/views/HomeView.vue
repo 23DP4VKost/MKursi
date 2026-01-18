@@ -6,7 +6,7 @@
       height="520"
     >
       <div class="hero-overlay">
-        <h1 class="hero-title">Matemātika 11.–12. klasei</h1>
+        <h1 class="hero-title">MKursi</h1>
         <p class="hero-subtitle">
           Mūsdienīga platforma matemātikas izpratnei un zināšanu nostiprināšanai
         </p>
@@ -31,7 +31,7 @@
         <v-col cols="12" md="4">
           <v-card class="feature-card" elevation="6">
             <v-img
-              src="https://images.unsplash.com/photo-1509228627159-6452cbb0a1bb?auto=format&fit=crop&w=800&q=80"
+              src="https://whs-blogs.co.uk/teaching/wp-content/uploads/2020/02/19413-2000x1200.jpg"
               height="220"
               cover
             />

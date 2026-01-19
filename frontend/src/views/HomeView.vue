@@ -61,7 +61,7 @@
         <v-col cols="12" md="4">
           <v-card class="feature-card" elevation="6">
             <v-img
-              src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80"
+              src="https://www.justinmind.com/wp-content/uploads/2024/10/progress-bar-ui-heading.png"
               height="220"
               cover
             />
@@ -85,14 +85,7 @@
           <p class="cta-text">
             Pievienojies platformai un uzlabo savas matemātikas zināšanas jau šodien
           </p>
-          <v-btn
-            color="secondary"
-            size="x-large"
-            rounded
-            class="mt-6"
-          >
-            Reģistrēties
-          </v-btn>
+          <v-btn color="secondary" size="x-large" roundedclass="mt-6">Reģistrēties</v-btn>
         </v-col>
       </v-row>
     </v-container>

@@ -1,6 +1,10 @@
 <template>
-  <v-container fluid class="pa-0">
-    <!-- HERO -->
+  <SiteHeader />
+  <v-app>
+    <SiteNav/>
+    <v-main>
+      <v-container fluid class="pa-0">
+      <!-- HERO -->
     <v-parallax
       src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80"
       height="520"
@@ -21,7 +25,7 @@
       </div>
     </v-parallax>
 
-    <!-- FEATURES -->
+      <!-- FEATURES -->
     <v-container class="my-14">
       <v-row justify="center" class="mb-10">
         <h2 class="section-title">Kā mēs palīdzam Tev mācīties</h2>
@@ -75,7 +79,7 @@
       </v-row>
     </v-container>
 
-    <!-- CTA -->
+      <!-- CTA -->
     <v-container fluid class="cta-section">
       <v-row justify="center" align="center">
         <v-col cols="12" md="9" class="text-center">
@@ -89,10 +93,16 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-container>
+      </v-container>
+    </v-main>
+    <SiteFooter />
+  </v-app>
 </template>
 
 <script setup lang="ts">
+import SiteHeader from '@/components/SiteHeader.vue';
+import SiteNavigation from '@/components/SiteNavigation.vue';
+import SiteFooter from '@/components/SiteFooter.vue';
 </script>
 
 <style scoped>

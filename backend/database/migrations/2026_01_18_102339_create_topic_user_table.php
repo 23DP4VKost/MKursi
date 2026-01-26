@@ -17,8 +17,7 @@ return new class extends Migration
             $table->foreignId('math_topic_id')->constrained()->onDelete('cascade');
             $table->integer('progress')->default(0); // 0-100 %
             $table->timestamps();
-    });
-
+        });
     }
 
     /**

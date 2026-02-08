@@ -4,6 +4,10 @@ import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import ContactView from '@/views/ContactView.vue'
 import ParMumsView from '@/views/ParMumsView.vue'
+import TopicsView from '@/views/TopicsView.vue'
+import TopicTheoriesView from '@/views/TopicTheoriesView.vue'
+import TheoryView from '@/views/TheoryView.vue'
+
 
 
 const routes = [
@@ -31,6 +35,21 @@ const routes = [
     path: '/par-mums',
     name: 'par-mums',
     component: ParMumsView,
+  },
+  {
+    path: '/topics',
+    name: 'topics',
+    component: TopicsView,
+  },
+  {
+    path: '/topics/:id',
+    name: 'topic-theories',
+    component: TopicTheoriesView,
+  },
+  {
+    path: '/theories/:id',
+    name: 'theory',
+    component: TheoryView,
   },
 ]
 

@@ -1,5 +1,5 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "extends": "./tsconfig.node.json",
   "compilerOptions": {
     "target": "ES2015",
     "useDefineForClassFields": true,

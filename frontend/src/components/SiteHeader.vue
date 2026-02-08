@@ -11,6 +11,8 @@
         <v-btn variant="text" class="nav-btn" to="/">Sākums</v-btn>
         <v-btn variant="text"class="nav-btn" to="/par-mums">Par mums</v-btn>
         <v-btn variant="text"class="nav-btn" to="/kontakti">Kontakti</v-btn>
+        <v-btn variant="text" class="nav-btn" to="/login">Log in</v-btn>
+        <v-btn variant="text" class="nav-btn" to="/register">Register</v-btn>
 
       </nav>
 

@@ -3,6 +3,7 @@
     <div class="background-texture" aria-hidden="true"></div>
 
     <SiteHeader />
+    <SiteNav />
 
     <v-main class="page-surface">
       <v-container fluid class="page-container">
@@ -17,6 +18,7 @@
 <script setup lang="ts">
 import SiteHeader from '@/components/SiteHeader.vue'
 import SiteFooter from '@/components/SiteFooter.vue'
+import SiteNav from '@/components/SiteNav.vue'
 </script>
 
 <style scoped>

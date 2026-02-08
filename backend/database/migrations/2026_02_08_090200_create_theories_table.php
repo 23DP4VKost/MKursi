@@ -8,17 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('math_topics', function (Blueprint $table) {
+        Schema::create('theories', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->integer('class_level'); // 11 или 12 класс
+            $table->string('subtopic_name', 40);
+            $table->longText('content');
+            $table->foreignId('topic_id')->constrained('topics')->cascadeOnDelete();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('math_topics');
+        Schema::dropIfExists('theories');
     }
 };

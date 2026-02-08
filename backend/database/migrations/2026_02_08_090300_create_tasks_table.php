@@ -10,10 +10,11 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('math_topic_id')->constrained('math_topics')->onDelete('cascade');
-            $table->string('title');
+            $table->string('name', 40);
             $table->text('question');
-            $table->text('answer');
+            $table->string('correct_answer', 10)->nullable();
+            $table->enum('difficulty_level', ['viegls', 'videjs', 'sarezgit'])->nullable();
+            $table->foreignId('topic_id')->constrained('topics')->cascadeOnDelete();
             $table->timestamps();
         });
     }

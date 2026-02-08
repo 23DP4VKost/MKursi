@@ -10,12 +10,9 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('math_topic_id')->constrained('math_topics')->onDelete('cascade');
-            $table->string('title');
-            $table->text('description');
-            $table->text('answer')->nullable();
-            $table->string('status')->default('new'); // atbildits
+            $table->string('topic', 50);
+            $table->text('content');
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

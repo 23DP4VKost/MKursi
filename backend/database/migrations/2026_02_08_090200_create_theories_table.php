@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('theories', function (Blueprint $table) {
             $table->id();
             $table->string('subtopic_name', 40);
+            $table->longText('content');
             $table->foreignId('topic_id')->constrained('topics')->cascadeOnDelete();
         });
     }

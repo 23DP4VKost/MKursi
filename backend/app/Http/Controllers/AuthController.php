@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -32,7 +33,11 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return response()->json(['user' => $user], 201);
+        Auth::login($user);
+
+        return response()->json([
+            'user' => $user,
+        ], 201);
     }
 
     public function login(Request $request)
@@ -56,5 +61,21 @@ class AuthController extends Controller
         Auth::logout();
 
         return response()->json(['message' => 'Logged out']);
+    }
+
+    public function profile(Request $request)
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthenticated'], 401);
+        }
+
+        $recentTopics = Topic::orderByDesc('created_at')->take(5)->get();
+
+        return response()->json([
+            'user' => $user,
+            'recent_topics' => $recentTopics,
+        ]);
     }
 }

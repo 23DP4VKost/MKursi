@@ -17,8 +17,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { login } from '@/services/auth'
+
+const router = useRouter()
 
 const email = ref('')
 const password = ref('')
@@ -39,23 +43,12 @@ const handleSubmit = async () => {
   }
 
   try {
-    const res = await fetch('http://localhost:8000/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.value, password: password.value })
-    })
-
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
-      error.value = data.message || 'Login failed'
-      return
-    }
-
+    await login(email.value, password.value)
     success.value = true
-    email.value = ''
-    password.value = ''
-  } catch {
-    error.value = 'Network error'
+    const redirectTo = '/profile'
+    router.push(redirectTo)
+  } catch (e: any) {
+    error.value = e?.response?.data?.message || 'Login failed'
   }
 }
 </script>

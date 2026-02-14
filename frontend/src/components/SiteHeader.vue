@@ -11,8 +11,14 @@
         <v-btn variant="text" class="nav-btn" to="/">Sākums</v-btn>
         <v-btn variant="text"class="nav-btn" to="/par-mums">Par mums</v-btn>
         <v-btn variant="text"class="nav-btn" to="/kontakti">Kontakti</v-btn>
-        <v-btn variant="text" class="nav-btn" to="/login">Log in</v-btn>
-        <v-btn variant="text" class="nav-btn" to="/register">Register</v-btn>
+        <template v-if="isLoggedIn">
+          <v-btn variant="text" class="nav-btn" to="/profile">Profils</v-btn>
+          <v-btn variant="text" class="nav-btn" @click="handleLogout">Log out</v-btn>
+        </template>
+        <template v-else>
+          <v-btn variant="text" class="nav-btn" to="/login">Log in</v-btn>
+          <v-btn variant="text" class="nav-btn" to="/register">Register</v-btn>
+        </template>
 
       </nav>
 
@@ -23,6 +29,22 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { currentUser, fetchCurrentUser, logout } from '@/services/auth'
+
+const router = useRouter()
+
+const isLoggedIn = computed(() => !!currentUser.value)
+
+const handleLogout = async () => {
+  await logout()
+  router.push('/')
+}
+
+onMounted(() => {
+  fetchCurrentUser()
+})
 </script>
 
 <style scoped>

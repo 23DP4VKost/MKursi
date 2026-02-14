@@ -7,6 +7,7 @@ import ParMumsView from '@/views/ParMumsView.vue'
 import TopicsView from '@/views/TopicsView.vue'
 import TopicTheoriesView from '@/views/TopicTheoriesView.vue'
 import TheoryView from '@/views/TheoryView.vue'
+import ProfileView from '@/views/ProfileView.vue'
 
 
 
@@ -50,6 +51,11 @@ const routes = [
     path: '/theories/:id',
     name: 'theory',
     component: TheoryView,
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfileView,
   },
 ]
 

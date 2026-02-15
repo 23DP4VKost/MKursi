@@ -100,7 +100,7 @@ const handleSubmit = async () => {
 }
 
 .hero {
-  padding: 28px 24px;
+  padding: 28px 34px;
   border-radius: 20px;
   background:
     radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), transparent 55%),

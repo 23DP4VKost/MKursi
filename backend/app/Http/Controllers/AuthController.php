@@ -74,7 +74,13 @@ class AuthController extends Controller
         $recentTopics = Topic::orderByDesc('created_at')->take(5)->get();
 
         return response()->json([
-            'user' => $user,
+            'user' => [
+                'id' => $user->id,
+                'email' => $user->email,
+                'username' => $user->username,
+                'role' => $user->role,
+                'created_at' => $user->created_at?->toISOString(),
+            ],
             'recent_topics' => $recentTopics,
         ]);
     }

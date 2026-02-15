@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import { fetchCurrentUser } from './services/auth'
 import { createVuetify } from 'vuetify'
-import 'vuetify/styles'
+import 'vuetify/_styles.scss'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 

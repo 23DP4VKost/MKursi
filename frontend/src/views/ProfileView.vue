@@ -1,23 +1,36 @@
 <template>
   <div class="profile-page">
     <section class="profile-card" v-if="user">
-      <h1>Profils</h1>
-      <p class="subtitle">Tavs konta pārskats</p>
+      <h1>Tavs konta pārskats</h1>
 
-      <v-divider class="my-4" />
+      <h2 class="section-title">Personīgā informācija</h2>
+
+      <div class="profile-row">
+        <span class="label">Lietotājvārds</span>
+        <span class="value">{{ user.username }}</span>
+      </div>
 
       <div class="profile-row">
         <span class="label">E-pasts</span>
         <span class="value">{{ user.email }}</span>
       </div>
+
       <div class="profile-row">
-        <span class="label">Lietotājvārds</span>
-        <span class="value">{{ user.username }}</span>
+        <span class="label">Konts izveidots</span>
+        <span class="value">{{ formatDate(user.created_at) }}</span>
       </div>
+
       <div class="profile-row">
         <span class="label">Loma</span>
         <span class="value">{{ user.role || 'user' }}</span>
       </div>
+      
+    </section>
+
+    <section class="profile-card" v-else>
+      <h1>Profils</h1>
+      <p class="subtitle">Profila dati nav pieejami. Piesakies vēlreiz.</p>
+      <p v-if="errorMessage" class="error-text">{{ errorMessage }}</p>
     </section>
 
     <section class="recent-topics" v-if="recentTopics.length">
@@ -49,12 +62,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { api } from '@/services/api'
+import { currentUser } from '@/services/auth'
 
 interface User {
   id: number
   email: string
   username: string
   role?: string
+  created_at?: string
 }
 
 interface Topic {
@@ -65,14 +80,20 @@ interface Topic {
 
 const user = ref<User | null>(null)
 const recentTopics = ref<Topic[]>([])
+const errorMessage = ref('')
 
 const loadProfile = async () => {
   try {
+    errorMessage.value = ''
+    if (currentUser.value) {
+      user.value = currentUser.value
+    }
     const { data } = await api.get('/profile')
     user.value = data.user
     recentTopics.value = data.recent_topics || []
   } catch (error) {
     console.error('Failed to load profile', error)
+    errorMessage.value = 'Neizdevās ielādēt profilu. Lūdzu, mēģini vēlreiz.'
   }
 }
 
@@ -108,6 +129,13 @@ onMounted(loadProfile)
   margin-bottom: 8px;
 }
 
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 16px 0 4px;
+  color: #111827;
+}
+
 .profile-row {
   display: flex;
   justify-content: space-between;
@@ -121,6 +149,11 @@ onMounted(loadProfile)
 
 .value {
   color: #111827;
+}
+
+.error-text {
+  color: #b91c1c;
+  margin-top: 8px;
 }
 
 .recent-topics {

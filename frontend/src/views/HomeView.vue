@@ -49,10 +49,6 @@
                   <span>Uzdevumi</span>
                   <v-progress-linear model-value="64" rounded color="#f97316" height="8" />
                 </div>
-                <div class="visual-row">
-                  <span>Tests</span>
-                  <v-progress-linear model-value="58" rounded color="#16a34a" height="8" />
-                </div>
               </div>
               <div class="visual-footer">
                 <div>

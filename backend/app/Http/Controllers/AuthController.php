@@ -48,7 +48,7 @@ class AuthController extends Controller
         ]);
 
         if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json(['message' => 'Nederīgi dati'], 401);
         }
 
         return response()->json([
@@ -60,7 +60,7 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        return response()->json(['message' => 'Logged out']);
+        return response()->json(['message' => 'Izrakstīts veiksmīgi']);
     }
 
     public function profile(Request $request)
@@ -68,7 +68,7 @@ class AuthController extends Controller
         $user = $request->user();
 
         if (!$user) {
-            return response()->json(['message' => 'Unauthenticated'], 401);
+            return response()->json(['message' => 'Nepieejams lietotājs'], 401);
         }
 
         $recentTopics = Topic::orderByDesc('created_at')->take(5)->get();

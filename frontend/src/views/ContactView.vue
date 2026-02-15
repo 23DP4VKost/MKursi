@@ -22,10 +22,10 @@
       <textarea v-model.trim="message" rows="5" placeholder="Raksti savu jautajumu..."></textarea>
 
       <p v-if="error" class="error">{{ error }}</p>
-      <p v-if="success" class="success">Paldies! Jautajums nosutits.</p>
+      <p v-if="success" class="success">Paldies! Jautājums nosūtīts.</p>
 
       <button type="submit" :disabled="loading">
-        {{ loading ? 'Suta...' : 'Nosutit' }}
+        {{ loading ? 'Sūta...' : 'Nosūtīt' }}
       </button>
     </form>
   </section>
@@ -47,15 +47,15 @@ const handleSubmit = async () => {
   success.value = false
 
   if (name.value.length < 2) {
-    error.value = 'Vards ir par isuu'
+    error.value = 'Vārds ir par īsu'
     return
   }
   if (!email.value.includes('@')) {
-    error.value = 'Email nav pareizs'
+    error.value = 'E-pasts nav pareizs'
     return
   }
   if (message.value.length < 10) {
-    error.value = 'Jautajumam jabut vismaz 10 simboli'
+    error.value = 'Jautājumam jābūt vismaz 10 simboliem'
     return
   }
 
@@ -75,7 +75,7 @@ const handleSubmit = async () => {
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}))
-      error.value = data.message || 'Neizdevas nosutit jautajumu'
+      error.value = data.message || 'Nevar nosūtīt jautājumu'
       return
     }
 
@@ -85,7 +85,7 @@ const handleSubmit = async () => {
     subject.value = ''
     message.value = ''
   } catch {
-    error.value = 'Tika konstateta tikla kluda'
+    error.value = 'Tika konstatēta tīkla kļūda.'
   } finally {
     loading.value = false
   }

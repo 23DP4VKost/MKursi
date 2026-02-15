@@ -13,11 +13,11 @@
         <v-btn variant="text"class="nav-btn" to="/kontakti">Kontakti</v-btn>
         <template v-if="isLoggedIn">
           <v-btn variant="text" class="nav-btn" to="/profile">Profils</v-btn>
-          <v-btn variant="text" class="nav-btn" @click="handleLogout">Log out</v-btn>
+          <v-btn variant="text" class="nav-btn" @click="handleLogout">Iziet</v-btn>
         </template>
         <template v-else>
-          <v-btn variant="text" class="nav-btn" to="/login">Log in</v-btn>
-          <v-btn variant="text" class="nav-btn" to="/register">Register</v-btn>
+          <v-btn variant="text" class="nav-btn" to="/login">Pieteikties</v-btn>
+          <v-btn variant="text" class="nav-btn" to="/register">Reģistrēties</v-btn>
         </template>
 
       </nav>

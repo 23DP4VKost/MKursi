@@ -12,7 +12,7 @@
             </p>
             <div class="hero-actions">
               <v-btn color="primary" size="large" class="action-btn" to="/kontakti">
-                Sazināties ar komandu
+                Uzdot jautājumu
               </v-btn>
               <v-btn variant="outlined" size="large" class="action-btn" to="/par-mums">
                 Uzzināt vairāk

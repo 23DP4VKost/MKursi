@@ -1,18 +1,18 @@
 <template>
   <div class="auth-page">
     <form class="card" @submit.prevent="handleSubmit">
-      <h2>Login</h2>
+      <h2>Pieteikšanās</h2>
 
       <label>Email</label>
-      <input v-model.trim="email" type="email" placeholder="you@example.com" />
+      <input v-model.trim="email" type="email" placeholder="you@gmail.com" />
 
-      <label>Password</label>
-      <input v-model="password" type="password" placeholder="At least 6 characters" />
+      <label>Parole</label>
+      <input v-model="password" type="password" placeholder="Vismaz 6 rakstzīmes" />
 
       <p v-if="error" class="error">{{ error }}</p>
-      <p v-if="success" class="success">Logged in successfully.</p>
+      <p v-if="success" class="success">Ielogojies veiksmīgi.</p>
 
-      <button type="submit">Login</button>
+      <button type="submit">Pieteikšanās</button>
     </form>
   </div>
 </template>
@@ -34,11 +34,11 @@ const handleSubmit = async () => {
   success.value = false
 
   if (!email.value.includes('@')) {
-    error.value = 'Email must contain @'
+    error.value = 'E-pasta adresē jābūt @ simbolam.'
     return
   }
   if (password.value.length < 6) {
-    error.value = 'Password must be at least 6 characters'
+    error.value = 'Parolei jābūt vismaz 6 rakstzīmēm.'
     return
   }
 
@@ -48,7 +48,7 @@ const handleSubmit = async () => {
     const redirectTo = '/profile'
     router.push(redirectTo)
   } catch (e: any) {
-    error.value = e?.response?.data?.message || 'Login failed'
+    error.value = e?.response?.data?.message || 'Pieteikšanās neizdevās'
   }
 }
 </script>

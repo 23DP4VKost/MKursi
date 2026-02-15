@@ -1,18 +1,18 @@
 <template>
   <div class="auth-page">
     <form class="card" @submit.prevent="handleSubmit">
-      <h2>Register</h2>
+      <h2>Reģistrēties</h2>
 
-      <label>Email</label>
-      <input v-model.trim="email" type="email" placeholder="you@example.com" />
+      <label>E-pasts</label>
+      <input v-model.trim="email" type="email" placeholder="you@gmail.com" />
 
-      <label>Password</label>
-      <input v-model="password" type="password" placeholder="At least 6 characters" />
+      <label>Parole</label>
+      <input v-model="password" type="password" placeholder="Vismaz 6 rakstzīmes" />
 
       <p v-if="error" class="error">{{ error }}</p>
-      <p v-if="success" class="success">Registered successfully.</p>
+      <p v-if="success" class="success">Reģistrēts veiksmīgi.</p>
 
-      <button type="submit">Register</button>
+      <button type="submit">Reģistrēties</button>
     </form>
   </div>
 </template>
@@ -30,11 +30,11 @@ const handleSubmit = async () => {
   success.value = false
 
   if (!email.value.includes('@')) {
-    error.value = 'Email must contain @'
+    error.value = 'E-pasta adresē jābūt @ simbolam.'
     return
   }
   if (password.value.length < 6) {
-    error.value = 'Password must be at least 6 characters'
+    error.value = 'Parolei jābūt vismaz 6 rakstzīmēm'
     return
   }
 
@@ -47,7 +47,7 @@ const handleSubmit = async () => {
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}))
-      error.value = data.message || 'Registration failed'
+      error.value = data.message || 'Reģistrācija neizdevās'
       return
     }
 

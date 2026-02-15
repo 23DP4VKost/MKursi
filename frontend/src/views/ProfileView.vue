@@ -92,7 +92,7 @@ const loadProfile = async () => {
     user.value = data.user
     recentTopics.value = data.recent_topics || []
   } catch (error) {
-    console.error('Failed to load profile', error)
+    console.error('Neizdevās ielādēt profilu', error)
     errorMessage.value = 'Neizdevās ielādēt profilu. Lūdzu, mēģini vēlreiz.'
   }
 }

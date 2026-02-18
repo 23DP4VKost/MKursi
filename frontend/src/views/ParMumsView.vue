@@ -17,7 +17,9 @@
           <li>Uzdevumi ar skaidru progresu un pašpārbaudi</li>
           <li>Jautājumu forma, lai saņemtu atbildes</li>
         </ul>
-      </article> 
+      </article>
+
+      
     </div>
 
     <section class="timeline">
@@ -85,7 +87,7 @@ h1 {
 .card {
   background: #ffffff;
   border-radius: 18px;
-  padding: 20px;
+  padding: 22px;
   box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
 }
 

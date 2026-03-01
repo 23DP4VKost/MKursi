@@ -1,0 +1,15 @@
+
+Definīcija:
+Eksponentfunkcija ir funkcija formā y = a^x, kur a > 0 un a ≠ 1.
+
+Pamatīpašības:
+- Definīcijas apgabals: visi reālie skaitļi.
+- Vērtību apgabals: (0; +∞).
+- Grafiks vienmēr iet caur punktu (0; 1).
+
+Monotonitāte:
+- Ja a > 1, funkcija ir pieaugoša.
+- Ja 0 < a < 1, funkcija ir dilstoša.
+
+Piemērs:
+Ja y = 2^x, tad pie x = 0 iegūstam y = 1, pie x = 1 iegūstam y = 2, bet pie x = 2 iegūstam y = 4.

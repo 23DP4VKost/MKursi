@@ -11,7 +11,7 @@
               pārskatīt vienuviet. Viss latviešu valodā, lai mācīšanās būtu dabiska.
             </p>
             <div class="hero-actions">
-              <v-btn color="primary" size="large" class="action-btn" to="/kontakti">
+              <v-btn color="primary" size="large" class="action-btn" to="/topics">
                 Uzdot jautājumu
               </v-btn>
               <v-btn variant="outlined" size="large" class="action-btn" to="/par-mums">

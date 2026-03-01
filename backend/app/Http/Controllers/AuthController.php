@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use RuntimeException;
 
 class AuthController extends Controller
 {
@@ -47,8 +48,20 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Nederīgi dati'], 401);
+        try {
+            if (!Auth::attempt($credentials)) {
+                return response()->json(['message' => 'Nederīgi dati'], 401);
+            }
+        } catch (RuntimeException $exception) {
+            $user = User::where('email', $credentials['email'])->first();
+
+            if (!$user || !hash_equals((string) $user->password, $credentials['password'])) {
+                return response()->json(['message' => 'Nederīgi dati'], 401);
+            }
+
+            $user->password = Hash::make($credentials['password']);
+            $user->save();
+            Auth::login($user);
         }
 
         return response()->json([
@@ -56,7 +69,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
 

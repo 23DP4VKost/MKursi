@@ -10,7 +10,6 @@
       <nav class="nav-links" aria-label="Galvenā navigācija">
         <v-btn variant="text" class="nav-btn" to="/">Sākums</v-btn>
         <v-btn variant="text"class="nav-btn" to="/par-mums">Par mums</v-btn>
-        <v-btn variant="text"class="nav-btn" to="/kontakti">Kontakti</v-btn>
         <template v-if="isLoggedIn">
           <v-btn variant="text" class="nav-btn" to="/profile">Profils</v-btn>
           <v-btn variant="text" class="nav-btn" @click="handleLogout">Iziet</v-btn>

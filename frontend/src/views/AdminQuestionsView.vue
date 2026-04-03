@@ -20,12 +20,7 @@
               {{ item.status === 'answered' ? 'Atbildēts' : 'Gaida atbildi' }}
             </v-chip>
 
-            <div v-if="item.status === 'answered'" class="mb-2">
-              Atbilde: {{ item.answer }}
-            </div>
-
             <v-textarea
-              v-else
               v-model="answers[item.id]"
               label="Atbilde"
               variant="outlined"
@@ -33,14 +28,25 @@
               auto-grow
             />
 
-            <v-btn
-              v-if="item.status !== 'answered'"
-              color="primary"
-              :loading="savingId === item.id"
-              @click="saveAnswer(item.id)"
-            >
-              Saglabāt atbildi
-            </v-btn>
+            <div class="d-flex ga-2 flex-wrap">
+              <v-btn
+                color="primary"
+                :loading="savingId === item.id"
+                @click="saveAnswer(item.id)"
+              >
+                Saglabāt atbildi
+              </v-btn>
+
+              <v-btn
+                v-if="item.status === 'answered'"
+                color="error"
+                variant="outlined"
+                :loading="deletingId === item.id"
+                @click="deleteAnswer(item.id)"
+              >
+                Dzēst atbildi
+              </v-btn>
+            </div>
           </v-list-item>
 
           <v-list-item v-if="questions.length === 0">
@@ -72,6 +78,7 @@ const answers = ref<Record<number, string>>({})
 const loading = ref(true)
 const error = ref('')
 const savingId = ref<number | null>(null)
+const deletingId = ref<number | null>(null)
 
 const loadQuestions = async () => {
   loading.value = true
@@ -80,6 +87,10 @@ const loadQuestions = async () => {
   try {
     const { data } = await api.get<QuestionItem[]>('/admin/questions')
     questions.value = data
+    answers.value = data.reduce((acc, item) => {
+      acc[item.id] = item.answer || ''
+      return acc
+    }, {} as Record<number, string>)
   } catch (err: any) {
     console.error(err)
     error.value = err?.response?.status === 403
@@ -96,15 +107,35 @@ const saveAnswer = async (questionId: number) => {
     return
   }
 
+  const question = questions.value.find((item) => item.id === questionId)
+  if (!question) {
+    return
+  }
+
   savingId.value = questionId
   try {
-    await api.post(`/admin/questions/${questionId}/answer`, { answer })
-    answers.value[questionId] = ''
+    if (question.status === 'answered') {
+      await api.put(`/admin/questions/${questionId}/answer`, { answer })
+    } else {
+      await api.post(`/admin/questions/${questionId}/answer`, { answer })
+    }
     await loadQuestions()
   } catch (err) {
     console.error(err)
   } finally {
     savingId.value = null
+  }
+}
+
+const deleteAnswer = async (questionId: number) => {
+  deletingId.value = questionId
+  try {
+    await api.delete(`/admin/questions/${questionId}/answer`)
+    await loadQuestions()
+  } catch (err) {
+    console.error(err)
+  } finally {
+    deletingId.value = null
   }
 }
 

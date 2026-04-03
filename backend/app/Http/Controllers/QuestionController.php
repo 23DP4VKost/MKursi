@@ -33,6 +33,45 @@ class QuestionController extends Controller
         return response()->json($question, 201);
     }
 
+    public function update(Request $request, int $question): JsonResponse
+    {
+        $validated = $request->validate([
+            'question' => 'required|string|max:2000',
+        ]);
+
+        $question = UserQuestion::query()
+            ->where('id', $question)
+            ->where('user_id', $request->user()->id)
+            ->firstOrFail();
+
+        $question->update([
+            'question' => $validated['question'],
+            'answer' => null,
+            'status' => 'pending',
+            'answered_by' => null,
+            'answered_at' => null,
+        ]);
+
+        return response()->json([
+            'message' => 'Jautājums atjaunināts.',
+            'question' => $question->fresh(),
+        ]);
+    }
+
+    public function destroy(Request $request, int $question): JsonResponse
+    {
+        $question = UserQuestion::query()
+            ->where('id', $question)
+            ->where('user_id', $request->user()->id)
+            ->firstOrFail();
+
+        $question->delete();
+
+        return response()->json([
+            'message' => 'Jautājums dzēsts.',
+        ]);
+    }
+
     public function adminList(Request $request): JsonResponse
     {
         if ($request->user()->role !== 'admin') {
@@ -48,7 +87,7 @@ class QuestionController extends Controller
         return response()->json($questions);
     }
 
-    public function answer(Request $request, int $questionId): JsonResponse
+    public function answer(Request $request, int $question): JsonResponse
     {
         if ($request->user()->role !== 'admin') {
             return response()->json(['message' => 'Nav tiesību piekļūt šai sadaļai.'], 403);
@@ -58,7 +97,7 @@ class QuestionController extends Controller
             'answer' => 'required|string|max:5000',
         ]);
 
-        $question = UserQuestion::query()->findOrFail($questionId);
+        $question = UserQuestion::query()->findOrFail($question);
         $question->update([
             'answer' => $validated['answer'],
             'status' => 'answered',
@@ -68,6 +107,26 @@ class QuestionController extends Controller
 
         return response()->json([
             'message' => 'Atbilde saglabāta.',
+            'question' => $question,
+        ]);
+    }
+
+    public function deleteAnswer(Request $request, int $question): JsonResponse
+    {
+        if ($request->user()->role !== 'admin') {
+            return response()->json(['message' => 'Nav tiesību piekļūt šai sadaļai.'], 403);
+        }
+
+        $question = UserQuestion::query()->findOrFail($question);
+        $question->update([
+            'answer' => null,
+            'status' => 'pending',
+            'answered_by' => null,
+            'answered_at' => null,
+        ]);
+
+        return response()->json([
+            'message' => 'Atbilde dzēsta.',
             'question' => $question,
         ]);
     }

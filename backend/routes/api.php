@@ -23,8 +23,12 @@ Route::middleware([
 	Route::middleware('auth')->group(function () {
 		Route::get('/questions/my', [QuestionController::class, 'myQuestions']);
 		Route::post('/questions', [QuestionController::class, 'ask']);
+		Route::put('/questions/{question}', [QuestionController::class, 'update']);
+		Route::delete('/questions/{question}', [QuestionController::class, 'destroy']);
 		Route::get('/admin/questions', [QuestionController::class, 'adminList']);
 		Route::post('/admin/questions/{question}/answer', [QuestionController::class, 'answer']);
+		Route::put('/admin/questions/{question}/answer', [QuestionController::class, 'answer']);
+		Route::delete('/admin/questions/{question}/answer', [QuestionController::class, 'deleteAnswer']);
 	});
 });
 Route::get('/topics', [TopicController::class, 'index']);

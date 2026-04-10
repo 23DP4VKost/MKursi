@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\TheoryController;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -26,6 +27,7 @@ Route::middleware([
 		Route::put('/questions/{question}', [QuestionController::class, 'update']);
 		Route::delete('/questions/{question}', [QuestionController::class, 'destroy']);
 		Route::get('/admin/questions', [QuestionController::class, 'adminList']);
+		Route::post('/admin/tasks', [TaskController::class, 'store']);
 		Route::post('/admin/questions/{question}/answer', [QuestionController::class, 'answer']);
 		Route::put('/admin/questions/{question}/answer', [QuestionController::class, 'answer']);
 		Route::delete('/admin/questions/{question}/answer', [QuestionController::class, 'deleteAnswer']);

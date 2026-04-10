@@ -6,6 +6,7 @@
       <v-list-item to="/tasks" title="Uzdevumi" />
       <v-list-item v-if="currentUser" to="/my-questions" title="Mani jautājumi" />
       <v-list-item v-if="currentUser?.role === 'admin'" to="/admin/questions" title="Admin jautājumi" />
+      <v-list-item v-if="currentUser?.role === 'admin'" to="/admin/tasks/new" title="Pievienot uzdevumu" />
     </v-list>
   </v-navigation-drawer>
 </template>

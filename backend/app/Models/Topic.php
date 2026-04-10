@@ -25,4 +25,9 @@ class Topic extends Model
     {
         return $this->hasMany(Theory::class, 'topic_id');
     }
+
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class, 'topic_id');
+    }
 }

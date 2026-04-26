@@ -16,6 +16,8 @@ Route::middleware([
 	AddQueuedCookiesToResponse::class,
 	StartSession::class,
 ])->group(function () {
+	Route::get('/tasks', [TaskController::class, 'index']);
+	Route::post('/admin/topics', [TopicController::class, 'store']);
 	Route::post('/register', [AuthController::class, 'register']);
 	Route::post('/login', [AuthController::class, 'login']);
 	Route::post('/logout', [AuthController::class, 'logout']);

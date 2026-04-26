@@ -58,7 +58,7 @@
 
           <v-text-field
             v-model="form.correct_answer"
-            label="Pareizā atbilde (nav obligāti)"
+            label="Pareizā atbilde"
             variant="outlined"
             maxlength="10"
             counter

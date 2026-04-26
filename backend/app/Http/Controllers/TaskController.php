@@ -2,12 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MathematicsPart;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+    public function index(): JsonResponse
+    {
+        $parts = MathematicsPart::query()
+            ->with(['topics' => function ($query) {
+                $query->orderBy('name')->with(['tasks' => function ($taskQuery) {
+                    $taskQuery->orderBy('id')->select([
+                        'id',
+                        'name',
+                        'question',
+                        'correct_answer',
+                        'difficulty_level',
+                        'topic_id',
+                    ]);
+                }])->select(['id', 'name', 'math_part_id']);
+            }])
+            ->orderBy('name')
+            ->get(['id', 'code', 'name']);
+
+        return response()->json($parts);
+    }
+
     public function store(Request $request): JsonResponse
     {
         if ($request->user()->role !== 'admin') {

@@ -10,6 +10,7 @@ import ProfileView from '@/views/ProfileView.vue'
 import MyQuestionsView from '@/views/MyQuestionsView.vue'
 import AdminQuestionsView from '@/views/AdminQuestionsView.vue'
 import AdminTaskCreateView from '@/views/AdminTaskCreateView.vue'
+import TasksView from '@/views/TasksView.vue'
 import { currentUser, fetchCurrentUser } from '@/services/auth'
 
 
@@ -49,6 +50,11 @@ const routes = [
     path: '/theories/:id',
     name: 'theory',
     component: TheoryView,
+  },
+  {
+    path: '/tasks',
+    name: 'tasks',
+    component: TasksView,
   },
   {
     path: '/profile',

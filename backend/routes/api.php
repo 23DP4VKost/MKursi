@@ -17,13 +17,15 @@ Route::middleware([
 	StartSession::class,
 ])->group(function () {
 	Route::get('/tasks', [TaskController::class, 'index']);
-	Route::post('/admin/topics', [TopicController::class, 'store']);
 	Route::post('/register', [AuthController::class, 'register']);
 	Route::post('/login', [AuthController::class, 'login']);
 	Route::post('/logout', [AuthController::class, 'logout']);
 	Route::get('/profile', [AuthController::class, 'profile']);
 
 	Route::middleware('auth')->group(function () {
+		Route::post('/admin/topics', [TopicController::class, 'store']);
+		Route::put('/admin/topics/{topic}', [TopicController::class, 'update']);
+		Route::delete('/admin/topics/{topic}', [TopicController::class, 'destroy']);
 		Route::get('/questions/my', [QuestionController::class, 'myQuestions']);
 		Route::post('/questions', [QuestionController::class, 'ask']);
 		Route::put('/questions/{question}', [QuestionController::class, 'update']);

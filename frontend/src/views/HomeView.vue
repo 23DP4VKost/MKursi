@@ -11,7 +11,13 @@
               pārskatīt vienuviet. Viss latviešu valodā, lai mācīšanās būtu dabiska.
             </p>
             <div class="hero-actions">
-              <v-btn color="primary" size="large" class="action-btn" to="/topics">
+              <v-btn
+                color="primary"
+                size="large"
+                class="action-btn"
+                :class="{ strike: !isLoggedIn }"
+                @click="handleAskQuestion"
+              >
                 Uzdot jautājumu
               </v-btn>
               <v-btn variant="outlined" size="large" class="action-btn" to="/par-mums">
@@ -135,6 +141,20 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { currentUser } from '@/services/auth'
+
+const router = useRouter()
+const isLoggedIn = computed(() => !!currentUser.value)
+
+const handleAskQuestion = () => {
+  if (isLoggedIn.value) {
+    router.push({ name: 'my-questions' })
+  } else {
+    router.push({ name: 'login' })
+  }
+}
 </script>
 
 <style scoped>
@@ -264,7 +284,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between;  
 }
 
 .foot-title {

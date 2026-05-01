@@ -11,8 +11,7 @@ class TheoryController extends Controller
 {
     public function index(int $topicId): JsonResponse
     {
-        $topic = Topic::query()
-            ->with(['theories' => function ($query) {
+        $topic = Topic::with(['theories' => function ($query) {
                 $query->orderBy('subtopic_name')->select(['id', 'subtopic_name', 'topic_id']);
             }])
             ->select(['id', 'name'])
@@ -23,8 +22,7 @@ class TheoryController extends Controller
 
     public function show(int $theoryId): JsonResponse
     {
-        $theory = Theory::query()
-            ->select(['id', 'subtopic_name', 'topic_id'])
+        $theory = Theory::select(['id', 'subtopic_name', 'topic_id'])
             ->findOrFail($theoryId);
 
         $content = $this->resolveTheoryContent($theory->subtopic_name);

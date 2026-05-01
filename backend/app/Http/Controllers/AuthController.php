@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use RuntimeException;
 
 class AuthController extends Controller
 {
@@ -48,20 +46,8 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        try {
-            if (!Auth::attempt($credentials)) {
-                return response()->json(['message' => 'Nederīgi dati'], 401);
-            }
-        } catch (RuntimeException $exception) {
-            $user = User::where('email', $credentials['email'])->first();
-
-            if (!$user || !hash_equals((string) $user->password, $credentials['password'])) {
-                return response()->json(['message' => 'Nederīgi dati'], 401);
-            }
-
-            $user->password = Hash::make($credentials['password']);
-            $user->save();
-            Auth::login($user);
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Nederīgi dati'], 401);
         }
 
         return response()->json([
@@ -84,8 +70,6 @@ class AuthController extends Controller
             return response()->json(['message' => 'Nepieejams lietotājs'], 401);
         }
 
-        $recentTopics = Topic::orderByDesc('created_at')->take(5)->get();
-
         return response()->json([
             'user' => [
                 'id' => $user->id,
@@ -94,7 +78,6 @@ class AuthController extends Controller
                 'role' => $user->role,
                 'created_at' => $user->created_at?->toISOString(),
             ],
-            'recent_topics' => $recentTopics,
         ]);
     }
 }

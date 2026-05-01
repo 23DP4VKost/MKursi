@@ -32,10 +32,6 @@ class TaskController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        if ($request->user()->role !== 'admin') {
-            return response()->json(['message' => 'Nav tiesību piekļūt šai sadaļai.'], 403);
-        }
-
         $validated = $request->validate([
             'name' => 'required|string|max:40',
             'question' => 'required|string|max:10000',
@@ -44,7 +40,7 @@ class TaskController extends Controller
             'topic_id' => 'required|integer|exists:topics,id',
         ]);
 
-        $task = Task::query()->create($validated);
+        $task = Task::create($validated);
 
         return response()->json([
             'message' => 'Uzdevums veiksmīgi pievienots.',

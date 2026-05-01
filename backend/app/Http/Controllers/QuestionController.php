@@ -10,10 +10,7 @@ class QuestionController extends Controller
 {
     public function myQuestions(Request $request): JsonResponse
     {
-        $questions = UserQuestion::query()
-            ->where('user_id', $request->user()->id)
-            ->orderByDesc('created_at')
-            ->get(['id', 'question', 'answer', 'status', 'answered_at', 'created_at']);
+        $questions = UserQuestion::where('user_id', $request->user()->id)->orderByDesc('created_at')->get(['id', 'question', 'answer', 'status', 'answered_at', 'created_at']);
 
         return response()->json($questions);
     }

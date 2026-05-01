@@ -1,7 +1,62 @@
 <template>
   <v-container class="py-6">
+    <v-card v-if="isAdmin" class="mb-6">
+      <v-card-title class="d-flex align-center justify-space-between flex-wrap ga-3 text-h6">
+        <span>Matemātikas daļas</span>
+        <v-btn
+          color="primary"
+          prepend-icon="mdi-plus"
+          @click="openCreatePartDialog"
+        >
+          Pievienot daļu
+        </v-btn>
+      </v-card-title>
+      <v-divider />
+      <v-card-text>
+        <v-alert v-if="partActionError" type="error" variant="tonal" class="mb-4">
+          {{ partActionError }}
+        </v-alert>
+        <v-alert v-else-if="partActionSuccess" type="success" variant="tonal" class="mb-4">
+          {{ partActionSuccess }}
+        </v-alert>
+
+        <v-list>
+          <v-list-item
+            v-for="part in sortedParts"
+            :key="part.id"
+          >
+            <v-list-item-title>{{ part.name }}</v-list-item-title>
+            <template #append>
+              <div class="d-flex ga-2">
+                <v-btn
+                  size="small"
+                  variant="outlined"
+                  @click="openEditPartDialog(part)"
+                >
+                  Rediģēt
+                </v-btn>
+                <v-btn
+                  size="small"
+                  color="error"
+                  variant="outlined"
+                  :loading="deletingPartId === part.id"
+                  @click="deletePart(part)"
+                >
+                  Dzēst
+                </v-btn>
+              </div>
+            </template>
+          </v-list-item>
+          <v-list-item v-if="parts.length === 0">
+            <v-list-item-title>Nav nevienas daļas.</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-card-text>
+    </v-card>
+
     <v-card>
-      <v-card-title class="text-h6">Tēmas
+      <v-card-title class="d-flex align-center justify-space-between flex-wrap ga-3 text-h6">
+        <span>Tēmas</span>
         <v-btn
           v-if="isAdmin"
           color="primary"
@@ -56,45 +111,40 @@
         </div>
 
         <v-list>
-          <template v-for="part in filteredAndSortedParts" :key="part.id">
-            <v-list-subheader>
-              {{ part.name }}
-            </v-list-subheader>
-            <v-list-item
-              v-for="topic in part.topics"
-              :key="topic.id"
-            >
-              <v-list-item-title>
-                <RouterLink :to="{ name: 'topic-theories', params: { id: topic.id } }" class="topic-link">
-                  {{ topic.name }}
-                </RouterLink>
-              </v-list-item-title>
-              <template #append>
-                <div v-if="isAdmin" class="d-flex ga-2">
-                  <v-btn
-                    size="small"
-                    variant="outlined"
-                    @click.stop="openEditDialog(topic)"
-                  >
-                    Rediģēt
-                  </v-btn>
-                  <v-btn
-                    size="small"
-                    color="error"
-                    variant="outlined"
-                    :loading="deletingTopicId === topic.id"
-                    @click.stop="deleteTopic(topic.id)"
-                  >
-                    Dzēst
-                  </v-btn>
-                </div>
-              </template>
-            </v-list-item>
-            <v-list-item v-if="part.topics.length === 0">
-              <v-list-item-title>Nav neviena tēma.</v-list-item-title>
-            </v-list-item>
-          </template>
-          <v-list-item v-if="filteredAndSortedParts.length === 0 && (searchQuery || filterPart)">
+          <v-list-item
+            v-for="topic in filteredTopics"
+            :key="topic.id"
+          >
+            <v-list-item-title>
+              <RouterLink :to="{ name: 'topic-theories', params: { id: topic.id } }" class="topic-link">
+                {{ topic.name }}
+              </RouterLink>
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ topic.partName }}
+            </v-list-item-subtitle>
+            <template #append>
+              <div v-if="isAdmin" class="d-flex ga-2">
+                <v-btn
+                  size="small"
+                  variant="outlined"
+                  @click.stop="openEditDialog(topic)"
+                >
+                  Rediģēt
+                </v-btn>
+                <v-btn
+                  size="small"
+                  color="error"
+                  variant="outlined"
+                  :loading="deletingTopicId === topic.id"
+                  @click.stop="deleteTopic(topic.id)"
+                >
+                  Dzēst
+                </v-btn>
+              </div>
+            </template>
+          </v-list-item>
+          <v-list-item v-if="filteredTopics.length === 0 && (searchQuery || filterPart)">
             <v-list-item-title>Nav atrasta neviena tēma.</v-list-item-title>
           </v-list-item>
           <v-list-item v-if="parts.length === 0">
@@ -151,6 +201,51 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="partDialog" max-width="520">
+      <v-card>
+        <v-card-title class="text-h6">
+          {{ editingPartId ? 'Rediģēt daļu' : 'Pievienot daļu' }}
+        </v-card-title>
+        <v-divider />
+        <v-card-text>
+          <v-form @submit.prevent="submitPart">
+            <v-text-field
+              v-model="partForm.code"
+              label="Daļas kods"
+              variant="outlined"
+              maxlength="3"
+              counter
+              class="mb-3"
+              required
+            />
+
+            <v-text-field
+              v-model="partForm.name"
+              label="Daļas nosaukums"
+              variant="outlined"
+              maxlength="40"
+              counter
+              class="mb-3"
+              required
+            />
+
+            <div class="d-flex justify-end ga-2">
+              <v-btn type="button" variant="text" :disabled="savingPart" @click="closePartDialog">
+                Atcelt
+              </v-btn>
+              <v-btn
+                color="primary"
+                type="submit"
+                :loading="savingPart"
+              >
+                {{ editingPartId ? 'Saglabāt' : 'Pievienot' }}
+              </v-btn>
+            </div>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -163,6 +258,11 @@ interface Topic {
   id: number
   name: string
   math_part_id: number
+}
+
+interface FlatTopic extends Topic {
+  partName: string
+  partCode: string
 }
 
 interface MathematicsPart {
@@ -182,6 +282,8 @@ const loading = ref(true)
 const error = ref('')
 const actionError = ref('')
 const actionSuccess = ref('')
+const partActionError = ref('')
+const partActionSuccess = ref('')
 const searchQuery = ref('')
 const filterPart = ref('')
 const sortOrder = ref('name-asc')
@@ -189,9 +291,17 @@ const topicDialog = ref(false)
 const savingTopic = ref(false)
 const deletingTopicId = ref<number | null>(null)
 const editingTopicId = ref<number | null>(null)
+const partDialog = ref(false)
+const savingPart = ref(false)
+const deletingPartId = ref<number | null>(null)
+const editingPartId = ref<number | null>(null)
 const topicForm = ref({
   name: '',
   math_part_id: null as number | null,
+})
+const partForm = ref({
+  code: '',
+  name: '',
 })
 
 const isAdmin = computed(() => currentUser.value?.role === 'admin')
@@ -218,44 +328,41 @@ const partFilterOptions = computed(() => {
   ]
 })
 
-const filteredAndSortedParts = computed(() => {
-  let result = parts.value.map(part => ({
-    ...part,
-    topics: [...part.topics]
-  }))
+const sortedParts = computed(() =>
+  [...parts.value].sort((a, b) => a.name.localeCompare(b.name)),
+)
 
+const filteredTopics = computed<FlatTopic[]>(() => {
+  let result = parts.value.flatMap((part) =>
+    part.topics.map((topic) => ({
+      ...topic,
+      partName: part.name,
+      partCode: part.code,
+    })),
+  )
 
   if (filterPart.value) {
-    result = result.filter(part => part.code === filterPart.value)
+    result = result.filter((topic) => topic.partCode === filterPart.value)
   }
 
   if (searchQuery.value) {
     const query = searchQuery.value.toLowerCase()
-    result = result.map(part => ({
-      ...part,
-      topics: part.topics.filter(topic => 
-        topic.name.toLowerCase().includes(query) ||
-        part.name.toLowerCase().includes(query)
-      )
-    })).filter(part => part.topics.length > 0)
+    result = result.filter((topic) =>
+      topic.name.toLowerCase().includes(query) ||
+      topic.partName.toLowerCase().includes(query),
+    )
   }
 
-
-  result.forEach(part => {
-    part.topics.sort((a, b) => {
-      switch (sortOrder.value) {
-        case 'name-asc':
-          return a.name.localeCompare(b.name)
-        case 'name-desc':
-          return b.name.localeCompare(a.name)
-        default:
-          return 0
-      }
-    })
+  result.sort((a, b) => {
+    switch (sortOrder.value) {
+      case 'name-asc':
+        return a.name.localeCompare(b.name)
+      case 'name-desc':
+        return b.name.localeCompare(a.name)
+      default:
+        return 0
+    }
   })
-
-
-  result.sort((a, b) => a.name.localeCompare(b.name))
 
   return result
 })
@@ -264,6 +371,7 @@ const loadTopics = async () => {
   loading.value = true
   error.value = ''
   actionError.value = ''
+  partActionError.value = ''
 
   try {
     const response = await api.get<MathematicsPart[]>('/topics')
@@ -292,6 +400,113 @@ const openCreateDialog = () => {
   editingTopicId.value = null
   resetTopicForm()
   topicDialog.value = true
+}
+
+const resetPartForm = () => {
+  partForm.value = {
+    code: '',
+    name: '',
+  }
+}
+
+const openCreatePartDialog = () => {
+  partActionError.value = ''
+  partActionSuccess.value = ''
+  editingPartId.value = null
+  resetPartForm()
+  partDialog.value = true
+}
+
+const openEditPartDialog = (part: MathematicsPart) => {
+  partActionError.value = ''
+  partActionSuccess.value = ''
+  editingPartId.value = part.id
+  partForm.value = {
+    code: part.code,
+    name: part.name,
+  }
+  partDialog.value = true
+}
+
+const closePartDialog = () => {
+  partDialog.value = false
+  editingPartId.value = null
+  resetPartForm()
+}
+
+const submitPart = async () => {
+  partActionError.value = ''
+  partActionSuccess.value = ''
+
+  const normalizedCode = partForm.value.code.trim().toUpperCase()
+  const normalizedName = partForm.value.name.trim()
+
+  if (normalizedCode.length !== 3) {
+    partActionError.value = 'Daļas kodam jābūt tieši 3 simboliem.'
+    return
+  }
+
+  if (!normalizedName) {
+    partActionError.value = 'Ievadi daļas nosaukumu.'
+    return
+  }
+
+  savingPart.value = true
+  try {
+    const payload = {
+      code: normalizedCode,
+      name: normalizedName,
+    }
+
+    if (editingPartId.value) {
+      await api.put(`/admin/mathematics-parts/${editingPartId.value}`, payload)
+      partActionSuccess.value = 'Daļa atjaunināta.'
+    } else {
+      await api.post('/admin/mathematics-parts', payload)
+      partActionSuccess.value = 'Daļa veiksmīgi pievienota.'
+    }
+
+    closePartDialog()
+    await loadTopics()
+  } catch (err: any) {
+    console.error(err)
+    partActionError.value = err?.response?.status === 403
+      ? 'Šī sadaļa pieejama tikai administratoram.'
+      : 'Neizdevās saglabāt daļu.'
+  } finally {
+    savingPart.value = false
+  }
+}
+
+const deletePart = async (part: MathematicsPart) => {
+  partActionError.value = ''
+  partActionSuccess.value = ''
+
+  const hasTopics = part.topics.length > 0
+  const confirmText = hasTopics
+    ? 'Šai daļai ir tēmas, kas arī tiks dzēstas. Vai turpināt?'
+    : 'Vai tiešām dzēst šo daļu?'
+
+  if (!window.confirm(confirmText)) {
+    return
+  }
+
+  deletingPartId.value = part.id
+  try {
+    await api.delete(`/admin/mathematics-parts/${part.id}`)
+    partActionSuccess.value = 'Daļa dzēsta.'
+    if (editingPartId.value === part.id) {
+      closePartDialog()
+    }
+    await loadTopics()
+  } catch (err: any) {
+    console.error(err)
+    partActionError.value = err?.response?.status === 403
+      ? 'Šī sadaļa pieejama tikai administratoram.'
+      : 'Neizdevās dzēst daļu.'
+  } finally {
+    deletingPartId.value = null
+  }
 }
 
 const openEditDialog = (topic: Topic) => {

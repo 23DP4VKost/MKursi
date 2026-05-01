@@ -55,6 +55,9 @@ const routes = [
     path: '/tasks',
     name: 'tasks',
     component: TasksView,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/profile',

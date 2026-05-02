@@ -1,6 +1,6 @@
 <template>
-  <v-container class="py-6">
-    <v-card class="mb-6">
+  <v-container class="py-6 view-page">
+    <v-card class="mb-6 view-card">
       <v-card-title class="text-h6">Uzdot jautājumu</v-card-title>
       <v-divider />
       <v-card-text>
@@ -29,7 +29,7 @@
       </v-card-text>
     </v-card>
 
-    <v-card>
+    <v-card class="view-card">
       <v-card-title class="text-h6">Mani jautājumi</v-card-title>
       <v-divider />
       <v-card-text>

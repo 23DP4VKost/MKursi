@@ -1,0 +1,34 @@
+
+Varbūtība raksturo, cik liela ir iespēja, ka notiks kāds nejaušs notikums.
+To lieto situācijās, kur rezultātu nevar paredzēt pilnīgi droši, piemēram, metot kauliņu, velkot kārti vai izvēloties objektu no kopas.
+
+Galvenie jēdzieni:
+- nejaušs eksperiments ir darbība, kuras iznākumu iepriekš nevar precīzi noteikt;
+- iznākums ir viens konkrēts eksperimenta rezultāts;
+- notikums ir viens vai vairāki iznākumi, kas mūs interesē;
+- paraugu kopums ir visu iespējamo iznākumu kopa.
+
+Varbūtības vērtība vienmēr ir robežās no 0 līdz 1.
+- 0 nozīmē, ka notikums nav iespējams;
+- 1 nozīmē, ka notikums noteikti notiks.
+
+Klasiskā varbūtība
+
+Ja visi iznākumi ir vienlīdz iespējami, tad klasisko varbūtību aprēķina pēc formulas:
+
+P(A) = labvēlīgie iznākumi / visi iespējamie iznākumi
+
+Piemērs:
+Metot godīgu sešskaldņu kauliņu, varbūtība iegūt skaitli 4 ir:
+P(4) = 1 / 6
+
+Piemērs:
+Ja maisā ir 3 sarkanas un 2 zilas bumbiņas, tad varbūtība izvilkt sarkanu bumbiņu ir:
+P(sarkana) = 3 / 5
+
+Svarīgi atcerēties:
+- labvēlīgo iznākumu skaits nedrīkst pārsniegt visu iespējamo iznākumu skaitu;
+- klasisko varbūtību lieto tikai tad, ja visi iznākumi ir vienādi iespējami;
+- ja notikums nav iespējams, tā varbūtība ir 0;
+- ja notikums ir drošs, tā varbūtība ir 1.
+

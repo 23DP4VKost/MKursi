@@ -1,0 +1,25 @@
+Vienādojumu ax² + bx + c = 0, kur a ≠ 0, sauc par kvadrātvienādojumu.
+Ja b = 0 vai c = 0, tad iegūst nepilno kvadrātvienādojumu.
+
+Nepilnajiem kvadrātvienādojumiem ir divi galvenie veidi:
+- ja c = 0, tad ax² + bx = 0;
+- ja b = 0, tad ax² + c = 0.
+
+Šādus vienādojumus var risināt arī ar diskriminantu, tomēr bieži vien ērtāk ir izmantot īpašas metodes.
+
+1) Ja ax² + bx = 0, tad iznes kopīgo reizinātāju x pirms iekavām:
+x(ax + b) = 0
+
+No reizinājuma nulles likuma seko:
+x = 0 vai ax + b = 0
+
+Tātad viena sakne ir 0, bet otra sakne ir x = −b/a.
+
+Piemērs:
+2x² − 30x = 0
+x(2x − 30) = 0
+x = 0 vai 2x − 30 = 0
+2x = 30
+x = 15
+
+Atbilde: x = 0; x = 15

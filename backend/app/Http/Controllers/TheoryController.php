@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Theory;
 use App\Models\Topic;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class TheoryController extends Controller
 {
     public function index(int $topicId): JsonResponse
     {
-        $topic = Topic::with(['theories' => function ($query) {
+        $topic = Topic::query()
+            ->with(['theories' => function ($query) {
                 $query->orderBy('subtopic_name')->select(['id', 'subtopic_name', 'topic_id']);
             }])
             ->select(['id', 'name'])
@@ -20,9 +23,74 @@ class TheoryController extends Controller
         return response()->json($topic);
     }
 
+    public function store(Request $request, Topic $topic): JsonResponse
+    {
+        $validated = $request->validate([
+            'subtopic_name' => 'required|string|max:40',
+            'content' => 'nullable|string',
+        ]);
+
+        $theory = $topic->theories()->create([
+            'subtopic_name' => $validated['subtopic_name'],
+        ]);
+
+        $this->writeTheoryContent($theory->subtopic_name, $validated['content'] ?? '');
+
+        return response()->json([
+            'message' => 'Apakštēma veiksmīgi pievienota.',
+            'theory' => $theory,
+        ], 201);
+    }
+
+    public function update(Request $request, Theory $theory): JsonResponse
+    {
+        $validated = $request->validate([
+            'subtopic_name' => 'required|string|max:40',
+            'content' => 'nullable|string',
+        ]);
+
+        $previousSubtopicName = $theory->subtopic_name;
+
+        $theory->update([
+            'subtopic_name' => $validated['subtopic_name'],
+        ]);
+
+        $previousPath = $this->resolveTheoryContentPath($previousSubtopicName);
+        $updatedPath = $this->resolveTheoryContentPath($theory->subtopic_name);
+
+        if ($previousPath !== $updatedPath && File::exists($previousPath)) {
+            File::move($previousPath, $updatedPath);
+        }
+
+        if (array_key_exists('content', $validated)) {
+            $this->writeTheoryContent($theory->subtopic_name, $validated['content'] ?? '');
+        }
+
+        return response()->json([
+            'message' => 'Apakštēma atjaunināta.',
+            'theory' => $theory->fresh(),
+        ]);
+    }
+
+    public function destroy(Theory $theory): JsonResponse
+    {
+        $contentPath = $this->resolveTheoryContentPath($theory->subtopic_name);
+
+        $theory->delete();
+
+        if (File::exists($contentPath)) {
+            File::delete($contentPath);
+        }
+
+        return response()->json([
+            'message' => 'Apakštēma dzēsta.',
+        ]);
+    }
+
     public function show(int $theoryId): JsonResponse
     {
-        $theory = Theory::select(['id', 'subtopic_name', 'topic_id'])
+        $theory = Theory::query()
+            ->select(['id', 'subtopic_name', 'topic_id'])
             ->findOrFail($theoryId);
 
         $content = $this->resolveTheoryContent($theory->subtopic_name);
@@ -37,15 +105,22 @@ class TheoryController extends Controller
 
     private function resolveTheoryContent(string $subtopicName): string
     {
-        $templatePath = match ($subtopicName) {
-            'Eksponentfunkcija' => resource_path('theories/Eksponentfunkcija.txt'),
-            default => null,
-        };
+        $templatePath = $this->resolveTheoryContentPath($subtopicName);
 
-        if ($templatePath && File::exists($templatePath)) {
+        if (File::exists($templatePath)) {
             return File::get($templatePath);
         }
 
         return 'Teorijas saturs šai apakštēmai vēl nav pievienots.';
+    }
+
+    private function resolveTheoryContentPath(string $subtopicName): string
+    {
+        return resource_path('theories/' . Str::slug($subtopicName) . '.txt');
+    }
+
+    private function writeTheoryContent(string $subtopicName, string $content): void
+    {
+        File::put($this->resolveTheoryContentPath($subtopicName), $content);
     }
 }

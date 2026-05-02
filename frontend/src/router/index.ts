@@ -10,6 +10,7 @@ import ProfileView from '@/views/ProfileView.vue'
 import MyQuestionsView from '@/views/MyQuestionsView.vue'
 import AdminQuestionsView from '@/views/AdminQuestionsView.vue'
 import AdminTaskCreateView from '@/views/AdminTaskCreateView.vue'
+import AdminTopicsView from '@/views/AdminTopicsView.vue'
 import TasksView from '@/views/TasksView.vue'
 import { currentUser, fetchCurrentUser } from '@/services/auth'
 
@@ -76,6 +77,15 @@ const routes = [
     path: '/admin/questions',
     name: 'admin-questions',
     component: AdminQuestionsView,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true,
+    },
+  },
+  {
+    path: '/admin/topics',
+    name: 'admin-topics',
+    component: AdminTopicsView,
     meta: {
       requiresAuth: true,
       requiresAdmin: true,

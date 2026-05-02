@@ -2,7 +2,6 @@
   <footer class="site-footer">
     <v-footer class="footer-bar" app padless>
       <v-container class="footer-container">
-
         <div class="footer-meta">
           <div>© {{ new Date().getFullYear() }} MKursi. Visas tiesības aizsargātas.</div>
           <small>Izveidots Latvijā, domāts skolēniem.</small>
@@ -11,9 +10,6 @@
     </v-footer>
   </footer>
 </template>
-
-<script setup lang="ts">
-</script>
 
 <style scoped>
 .site-footer {
@@ -32,7 +28,6 @@
   align-items: center;
   gap: 18px;
 }
-
 
 .footer-meta {
   display: flex;

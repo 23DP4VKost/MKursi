@@ -1,6 +1,6 @@
 <template>
-  <div class="profile-page">
-    <section class="profile-card" v-if="user">
+  <div class="profile-page view-page">
+    <section class="profile-card view-card" v-if="user">
       <h1>Tavs konta pārskats</h1>
 
       <h2 class="section-title">Personīgā informācija</h2>
@@ -27,15 +27,15 @@
       
     </section>
 
-    <section class="profile-card" v-else>
+    <section class="profile-card view-card" v-else>
       <h1>Profils</h1>
-      <p class="subtitle">Profila dati nav pieejami. Piesakies vēlreiz.</p>
+      <p class="subtitle view-subtitle">Profila dati nav pieejami. Piesakies vēlreiz.</p>
       <p v-if="errorMessage" class="error-text">{{ errorMessage }}</p>
     </section>
 
-    <section class="recent-topics" v-if="recentTopics.length">
+    <section class="recent-topics view-card" v-if="recentTopics.length">
       <h2>Nesen skatītās tēmas</h2>
-      <p class="subtitle">Pēdējās pievienotās vai skatītās tēmas platformā</p>
+      <p class="subtitle view-subtitle">Pēdējās pievienotās vai skatītās tēmas platformā</p>
 
       <v-list density="comfortable" class="mt-2">
         <v-list-item
@@ -52,9 +52,9 @@
       </v-list>
     </section>
 
-    <section v-else class="recent-topics empty">
+    <section v-else class="recent-topics view-card empty">
       <h2>Nesenās tēmas</h2>
-      <p class="subtitle">Vēl nav pievienotu tēmu.</p>
+      <p class="subtitle view-subtitle">Vēl nav pievienotu tēmu.</p>
     </section>
   </div>
 </template>

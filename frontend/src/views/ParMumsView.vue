@@ -1,5 +1,5 @@
 <template>
-  <section class="about-page">
+  <section class="about-page view-page">
     <header class="hero">
       <p class="eyebrow">Par mums</p>
       <h1>Mācies matemātiku skaidri, soli pa solim</h1>
@@ -10,7 +10,7 @@
     </header>
 
     <div class="grid">
-      <article class="card">
+      <article class="card view-card">
         <h2>Ko tu šeit iegūsi</h2>
         <ul>
           <li>Īsas teorijas sadaļas bez liekas informācijas</li>
@@ -22,7 +22,7 @@
       
     </div>
 
-    <section class="timeline">
+    <section class="timeline view-card">
       <h2>Kā viss notiek</h2>
       <div class="steps">
         <div class="step">

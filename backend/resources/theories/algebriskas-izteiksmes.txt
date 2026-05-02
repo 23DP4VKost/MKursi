@@ -1,0 +1,16 @@
+Algebrā, atšķirībā no aritmētikas, lieto nezināmos lielumus, kurus apzīmē ar burtiem, piemēram, a, b, x vai y.
+Šie burti ir mainīgie lielumi, kuru vērtība var mainīties atkarībā no uzdevuma nosacījumiem.
+
+Matemātisku izteiksmi, kurā ir mainīgie, sauc par algebrisku izteiksmi.
+
+Svarīgi atcerēties:
+- ja starp skaitli un burtu nav zīmes, tad tas nozīmē reizināšanu;
+- burtu vietā izteiksmē ievieto dotās vērtības;
+- pēc tam veic darbības pareizā secībā.
+
+Piemērs:
+Izteiksme ir 2a + 3b.
+Ja a = −4 un b = 1, tad iegūstam:
+2a + 3b = 2⋅(−4) + 3⋅1 = −8 + 3 = −5
+
+Tātad izteiksmes vērtība ir −5.

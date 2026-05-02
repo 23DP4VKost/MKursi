@@ -12,7 +12,11 @@ class TopicController extends Controller
     public function index(): JsonResponse
     {
         $parts = MathematicsPart::with(['topics' => function ($query) {
-                $query->orderBy('name')->select(['id', 'name', 'math_part_id']);
+                $query->with(['theories' => function ($theoryQuery) {
+                        $theoryQuery->orderBy('subtopic_name')->select(['id', 'subtopic_name', 'topic_id']);
+                    }])
+                    ->orderBy('name')
+                    ->select(['id', 'name', 'math_part_id']);
             }])
             ->orderBy('name')
             ->get(['id', 'code', 'name']);

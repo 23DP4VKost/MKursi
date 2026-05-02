@@ -1,6 +1,6 @@
 <template>
-  <v-container class="py-6">
-    <v-card>
+  <v-container class="py-6 view-page">
+    <v-card class="view-card">
       <v-card-title class="text-h6">{{ title }}</v-card-title>
       <v-divider />
       <v-card-text>

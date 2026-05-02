@@ -1,0 +1,19 @@
+Trijstūra nevienādība nosaka, ka katras malas garums ir mazāks par abu pārējo malu garumu summu un lielāks par abu pārējo malu garumu starpību.
+
+Tātad trijstūrī ar malām AB, BC un CA jāizpildās šādām attiecībām:
+- AB < BC + CA un AB > BC − CA;
+- BC < CA + AB un BC > CA − AB;
+- CA < AB + BC un CA > AB − BC.
+
+Piemērs:
+Pārbaudām, vai no nogriežņiem ar garumiem 4 cm, 6 cm un 8 cm var izveidot trijstūri ABC.
+
+Jāpārbauda visas trijstūra nevienādības:
+- 4 < 6 + 8, tātad 4 < 14;
+- 4 > 8 − 6, tātad 4 > 2;
+- 6 < 8 + 4, tātad 6 < 12;
+- 6 > 8 − 4, tātad 6 > 4;
+- 8 < 4 + 6, tātad 8 < 10;
+- 8 > 6 − 4, tātad 8 > 2.
+
+Tā kā visas nevienādības ir patiesas, no šiem nogriežņiem var izveidot trijstūri ABC.

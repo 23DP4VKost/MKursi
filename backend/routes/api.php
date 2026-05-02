@@ -34,12 +34,17 @@ Route::middleware([
 		Route::post('/admin/topics', [TopicController::class, 'store']);
 		Route::put('/admin/topics/{topic}', [TopicController::class, 'update']);
 		Route::delete('/admin/topics/{topic}', [TopicController::class, 'destroy']);
+		Route::post('/admin/topics/{topic}/theories', [TheoryController::class, 'store']);
+		Route::put('/admin/theories/{theory}', [TheoryController::class, 'update']);
+		Route::delete('/admin/theories/{theory}', [TheoryController::class, 'destroy']);
 		Route::get('/questions/my', [QuestionController::class, 'myQuestions']);
 		Route::post('/questions', [QuestionController::class, 'ask']);
 		Route::put('/questions/{question}', [QuestionController::class, 'update']);
 		Route::delete('/questions/{question}', [QuestionController::class, 'destroy']);
 		Route::get('/admin/questions', [QuestionController::class, 'adminList']);
 		Route::post('/admin/tasks', [TaskController::class, 'store']);
+		Route::post('/admin/questions/{question}/answer', [QuestionController::class, 'answer']);
+		Route::put('/admin/questions/{question}/answer', [QuestionController::class, 'answer']);
 		Route::patch('/admin/questions/{question}/answer', [QuestionController::class, 'answer']);
 		Route::delete('/admin/questions/{question}/answer', [QuestionController::class, 'deleteAnswer']);
 	});

@@ -10,9 +10,10 @@ class Theory extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'subtopic_name',
-        'content',
         'topic_id',
     ];
 

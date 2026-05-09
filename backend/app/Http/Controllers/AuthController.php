@@ -62,6 +62,23 @@ class AuthController extends Controller
         return response()->json(['message' => 'Izrakstīts veiksmīgi']);
     }
 
+    public function destroy(Request $request)
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Nepieejams lietotājs'], 401);
+        }
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        $user->delete();
+
+        return response()->json(['message' => 'Konts dzēsts veiksmīgi']);
+    }
+
     public function profile(Request $request)
     {
         $user = $request->user();

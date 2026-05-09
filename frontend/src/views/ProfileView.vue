@@ -24,6 +24,18 @@
         <span class="label">Loma</span>
         <span class="value">{{ user.role || 'user' }}</span>
       </div>
+
+      <div class="profile-actions">
+        <v-btn
+          color="error"
+          variant="flat"
+          class="delete-account-btn"
+          :loading="isDeleting"
+          @click="isDeleteDialogOpen = true"
+        >
+          Dzēst kontu
+        </v-btn>
+      </div>
       
     </section>
 
@@ -33,36 +45,33 @@
       <p v-if="errorMessage" class="error-text">{{ errorMessage }}</p>
     </section>
 
-    <section class="recent-topics view-card" v-if="recentTopics.length">
-      <h2>Nesen skatītās tēmas</h2>
-      <p class="subtitle view-subtitle">Pēdējās pievienotās vai skatītās tēmas platformā</p>
-
-      <v-list density="comfortable" class="mt-2">
-        <v-list-item
-          v-for="topic in recentTopics"
-          :key="topic.id"
-          :to="`/topics/${topic.id}`"
-          link
-        >
-          <v-list-item-title>{{ topic.name }}</v-list-item-title>
-          <v-list-item-subtitle>
-            {{ formatDate(topic.created_at) }}
-          </v-list-item-subtitle>
-        </v-list-item>
-      </v-list>
-    </section>
-
-    <section v-else class="recent-topics view-card empty">
-      <h2>Nesenās tēmas</h2>
-      <p class="subtitle view-subtitle">Vēl nav pievienotu tēmu.</p>
-    </section>
+    <v-dialog v-model="isDeleteDialogOpen" max-width="520">
+      <v-card class="delete-dialog">
+        <v-card-title>Apstiprini konta dzēšanu</v-card-title>
+        <v-card-text>
+          Šo darbību nevar atsaukt. Tavs konts, profils un ar to saistītie dati tiks neatgriezeniski dzēsti.
+        </v-card-text>
+        <v-card-actions class="dialog-actions">
+          <v-btn variant="text" @click="isDeleteDialogOpen = false">Atcelt</v-btn>
+          <v-btn
+            color="error"
+            variant="flat"
+            :loading="isDeleting"
+            @click="handleDeleteAccount"
+          >
+            Dzēst kontu
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { api } from '@/services/api'
-import { currentUser } from '@/services/auth'
+import { currentUser, deleteAccount } from '@/services/auth'
 
 interface User {
   id: number
@@ -81,6 +90,9 @@ interface Topic {
 const user = ref<User | null>(null)
 const recentTopics = ref<Topic[]>([])
 const errorMessage = ref('')
+const isDeleting = ref(false)
+const isDeleteDialogOpen = ref(false)
+const router = useRouter()
 
 const loadProfile = async () => {
   try {
@@ -100,6 +112,20 @@ const loadProfile = async () => {
 const formatDate = (value?: string) => {
   if (!value) return ''
   return new Date(value).toLocaleDateString('lv-LV')
+}
+
+const handleDeleteAccount = async () => {
+  try {
+    isDeleting.value = true
+    await deleteAccount()
+    isDeleteDialogOpen.value = false
+    router.push('/login')
+  } catch (error) {
+    console.error('Neizdevās dzēst kontu', error)
+    errorMessage.value = 'Neizdevās dzēst kontu. Lūdzu, mēģini vēlreiz.'
+  } finally {
+    isDeleting.value = false
+  }
 }
 
 onMounted(loadProfile)
@@ -149,6 +175,29 @@ onMounted(loadProfile)
 
 .value {
   color: #111827;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.delete-account-btn {
+  min-width: 160px;
+  text-transform: none;
+  font-weight: 700;
+}
+
+.delete-dialog {
+  padding: 8px 4px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 16px 16px;
 }
 
 .error-text {

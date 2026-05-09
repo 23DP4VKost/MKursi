@@ -26,6 +26,7 @@ Route::middleware([
 
 	Route::middleware('auth')->group(function () {
 		Route::post('/logout', [AuthController::class, 'logout']);
+		Route::delete('/profile', [AuthController::class, 'destroy']);
 		Route::get('/profile', [AuthController::class, 'profile']);
 
 		Route::post('/admin/mathematics-parts', [MathematicsPartController::class, 'store']);

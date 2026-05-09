@@ -32,3 +32,11 @@ export const logout = async () => {
     currentUser.value = null
   }
 }
+
+export const deleteAccount = async () => {
+  try {
+    await api.delete('/profile')
+  } finally {
+    currentUser.value = null
+  }
+}

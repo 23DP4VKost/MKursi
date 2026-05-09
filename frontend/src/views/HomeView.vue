@@ -39,34 +39,6 @@
               </div>
             </div>
           </v-col>
-
-          <v-col cols="12" md="6" class="hero-visual">
-            <v-card class="visual-card" elevation="6">
-              <div class="visual-header">
-                <div class="status-dot"></div>
-                <span>Darba plūsma</span>
-              </div>
-              <div class="visual-body">
-                <div class="visual-row">
-                  <span>Teorija</span>
-                  <v-progress-linear model-value="82" rounded color="primary" height="8" />
-                </div>
-                <div class="visual-row">
-                  <span>Uzdevumi</span>
-                  <v-progress-linear model-value="64" rounded color="#f97316" height="8" />
-                </div>
-              </div>
-              <div class="visual-footer">
-                <div>
-                  <p class="foot-title">Tavs progress</p>
-                  <p class="foot-sub">Atgriezeniskā saite katram mēģinājumam</p>
-                </div>
-                <v-avatar color="primary" size="42">
-                  <span class="avatar-initials">MK</span>
-                </v-avatar>
-              </div>
-            </v-card>
-          </v-col>
         </v-row>
       </v-card>
     </section>

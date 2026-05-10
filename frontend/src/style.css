@@ -47,3 +47,34 @@ button,
 .v-btn {
   font-family: inherit;
 }
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .page-container {
+    padding: 16px 12px 32px !important;
+  }
+
+  .view-card {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .auth-page {
+    padding: 16px 12px;
+  }
+
+  .auth-page .card {
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .v-card-title {
+    line-height: 1.3;
+    white-space: normal;
+  }
+}

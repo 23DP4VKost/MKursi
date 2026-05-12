@@ -230,7 +230,7 @@
           <v-form @submit.prevent="submitPart">
             <v-text-field
               v-model="partForm.code"
-              label="Daļas kods"
+              label="Daļas kods (3 burti)"
               variant="outlined"
               maxlength="3"
               counter

@@ -10,12 +10,23 @@ use App\Http\Controllers\TheoryController;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\DB;
 
 Route::middleware([
 	EncryptCookies::class,
 	AddQueuedCookiesToResponse::class,
 	StartSession::class,
 ])->group(function () {
+		Route::get('/online-users', function () {
+			$threshold = time() - 300;
+			$count = DB::table('sessions')
+				->whereNotNull('user_id')
+				->where('last_activity', '>=', $threshold)
+				->distinct()
+				->count('user_id');
+			return response()->json(['count' => $count]);
+		});
+		
 	Route::get('/tasks', [TaskController::class, 'index']);
 	Route::post('/register', [AuthController::class, 'register']);
 	Route::post('/login', [AuthController::class, 'login']);

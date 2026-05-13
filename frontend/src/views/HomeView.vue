@@ -37,6 +37,10 @@
                 <div class="metric-number">100%</div>
                 <div class="metric-label">saturs latviešu valodā</div>
               </div>
+              <div class="metric">
+                <div class="metric-number">{{ onlineCount !== null ? onlineCount : '—' }}</div>
+                <div class="metric-label">lietotāji tiešsaistē</div>
+              </div>
             </div>
           </v-col>
         </v-row>
@@ -113,9 +117,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { currentUser } from '@/services/auth'
+import { api } from '@/services/api'
 
 const router = useRouter()
 const isLoggedIn = computed(() => !!currentUser.value)
@@ -127,6 +132,21 @@ const handleAskQuestion = () => {
     router.push({ name: 'login' })
   }
 }
+
+const onlineCount = ref<number | null>(null)
+
+const fetchOnlineCount = async () => {
+  try {
+    const { data } = await api.get('/online-users')
+    onlineCount.value = data.count
+  } catch (err) {
+    onlineCount.value = null
+  }
+}
+
+onMounted(() => {
+  fetchOnlineCount()
+})
 </script>
 
 <style scoped>

@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { currentUser, fetchCurrentUser } from '@/services/auth'
+import { currentUser, fetchCurrentUser } from '../services/auth'
 
 onMounted(async () => {
   if (!currentUser.value) {

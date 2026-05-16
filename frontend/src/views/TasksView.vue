@@ -176,7 +176,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
-import { api } from '@/services/api'
+import { api } from '../services/api'
 
 interface TaskItem {
   id: number

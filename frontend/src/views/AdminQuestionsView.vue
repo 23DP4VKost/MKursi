@@ -60,7 +60,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { api } from '@/services/api'
+import { api } from '../services/api'
 
 interface QuestionItem {
   id: number

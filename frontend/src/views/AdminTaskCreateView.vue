@@ -81,7 +81,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { api } from '@/services/api'
+import { api } from '../services/api'
 
 interface Topic {
   id: number

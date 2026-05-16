@@ -70,8 +70,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { api } from '@/services/api'
-import { currentUser, deleteAccount } from '@/services/auth'
+import { api } from '../services/api'
+import { currentUser, deleteAccount } from '../services/auth'
 
 interface User {
   id: number

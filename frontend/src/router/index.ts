@@ -12,7 +12,7 @@ import AdminQuestionsView from '@/views/AdminQuestionsView.vue'
 import AdminTaskCreateView from '@/views/AdminTaskCreateView.vue'
 import AdminTopicsView from '@/views/AdminTopicsView.vue'
 import TasksView from '@/views/TasksView.vue'
-import { currentUser, fetchCurrentUser } from '@/services/auth'
+import { currentUser, fetchCurrentUser } from '../services/auth'
 
 
 

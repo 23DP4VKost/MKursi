@@ -119,8 +119,8 @@
 <script setup lang="ts">
 import { computed, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { currentUser } from '@/services/auth'
-import { api } from '@/services/api'
+import { currentUser } from '../services/auth'
+import { api } from '../services/api'
 
 const router = useRouter()
 const isLoggedIn = computed(() => !!currentUser.value)

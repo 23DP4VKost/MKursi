@@ -19,6 +19,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { api } from '@/services/api'
 
 const email = ref('')
 const password = ref('')
@@ -39,23 +40,16 @@ const handleSubmit = async () => {
   }
 
   try {
-    const res = await fetch('http://localhost:8000/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.value, password: password.value })
+    await api.post('/register', { 
+      email: email.value, 
+      password: password.value 
     })
-
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
-      error.value = data.message || 'Reģistrācija neizdevās'
-      return
-    }
 
     success.value = true
     email.value = ''
     password.value = ''
-  } catch {
-    error.value = 'Network error'
+  } catch (err) {
+    error.value = err?.response?.data?.message || 'Reģistrācija neizdevās'
   }
 }
 </script>

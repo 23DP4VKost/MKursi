@@ -6,7 +6,9 @@ return [
     'allowed_methods' => ['*'],
     'allowed_origins' => [
         'http://localhost:5173',
-        'https://m-kursi-2547.vercel.app',
+        'http://localhost:8000',
+        'https://mkursi.vercel.app',
+        'https://mkursi.up.railway.app',
     ],
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],

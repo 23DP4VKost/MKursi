@@ -8,6 +8,7 @@ return [
         'http://localhost:5173',
         'http://localhost:8000',
         'https://mkursi.vercel.app',
+        'https://m-kursi-2547.vercel.app',
         'https://mkursi.up.railway.app',
     ],
     'allowed_origins_patterns' => [],

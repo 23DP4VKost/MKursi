@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { currentUser, fetchCurrentUser, logout } from '../services/auth'
+import { currentUser, fetchCurrentUser, hasStoredSession, logout } from '../services/auth'
 
 const router = useRouter()
 
@@ -42,7 +42,9 @@ const handleLogout = async () => {
 }
 
 onMounted(() => {
-  fetchCurrentUser()
+  if (hasStoredSession()) {
+    fetchCurrentUser()
+  }
 })
 </script>
 

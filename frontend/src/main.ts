@@ -14,11 +14,11 @@ const vuetify = createVuetify({
   directives,
 })
 
-fetchCurrentUser()
-
 createApp(App)
   .use(router)
   .use(vuetify)
   .mount('#app')
+
+fetchCurrentUser()
 
   

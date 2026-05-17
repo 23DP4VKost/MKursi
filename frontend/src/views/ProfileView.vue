@@ -71,7 +71,7 @@
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '../services/api'
-import { currentUser, deleteAccount } from '../services/auth'
+import { currentUser, deleteAccount, hasStoredSession } from '../services/auth'
 
 interface User {
   id: number
@@ -99,6 +99,12 @@ const loadProfile = async () => {
     errorMessage.value = ''
     if (currentUser.value) {
       user.value = currentUser.value
+      return
+    }
+
+    if (!hasStoredSession()) {
+      errorMessage.value = 'Profils nav pieejams bez pieslēgšanās.'
+      return
     }
     const { data } = await api.get('/profile')
     user.value = data.user

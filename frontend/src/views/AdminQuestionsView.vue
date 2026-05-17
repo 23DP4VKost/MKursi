@@ -61,6 +61,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { api } from '../services/api'
+import { hasStoredSession } from '../services/auth'
 
 interface QuestionItem {
   id: number
@@ -83,6 +84,12 @@ const deletingId = ref<number | null>(null)
 const loadQuestions = async () => {
   loading.value = true
   error.value = ''
+
+  if (!hasStoredSession()) {
+    error.value = 'Šī sadaļa pieejama tikai administratoram.'
+    loading.value = false
+    return
+  }
 
   try {
     const { data } = await api.get<QuestionItem[]>('/admin/questions')

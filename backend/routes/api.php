@@ -18,14 +18,14 @@ Route::middleware([
 	StartSession::class,
 ])->group(function () {
 		Route::get('/online-users', function () {
-			$threshold = time() - 300;
+			$threshold = now()->subMinutes(5)->timestamp;
 			$count = DB::table('sessions')
 				->whereNotNull('user_id')
 				->where('last_activity', '>=', $threshold)
 				->distinct()
 				->count('user_id');
 			return response()->json(['count' => $count]);
-		});
+			});
 		
 	Route::get('/tasks', [TaskController::class, 'index']);
 	Route::post('/register', [AuthController::class, 'register']);
@@ -34,6 +34,9 @@ Route::middleware([
 	Route::get('/topics', [TopicController::class, 'index']);
 	Route::get('/topics/{topic}/theories', [TheoryController::class, 'index']);
 	Route::get('/theories/{theory}', [TheoryController::class, 'show']);
+
+
+	Route::post('/questions', [QuestionController::class, 'ask']);
 
 	Route::middleware('auth')->group(function () {
 		Route::post('/logout', [AuthController::class, 'logout']);
@@ -50,7 +53,6 @@ Route::middleware([
 		Route::put('/admin/theories/{theory}', [TheoryController::class, 'update']);
 		Route::delete('/admin/theories/{theory}', [TheoryController::class, 'destroy']);
 		Route::get('/questions/my', [QuestionController::class, 'myQuestions']);
-		Route::post('/questions', [QuestionController::class, 'ask']);
 		Route::put('/questions/{question}', [QuestionController::class, 'update']);
 		Route::delete('/questions/{question}', [QuestionController::class, 'destroy']);
 		Route::get('/admin/questions', [QuestionController::class, 'adminList']);

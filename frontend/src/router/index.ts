@@ -12,7 +12,7 @@ import AdminQuestionsView from '@/views/AdminQuestionsView.vue'
 import AdminTaskCreateView from '@/views/AdminTaskCreateView.vue'
 import AdminTopicsView from '@/views/AdminTopicsView.vue'
 import TasksView from '@/views/TasksView.vue'
-import { currentUser, fetchCurrentUser } from '../services/auth'
+import { currentUser, fetchCurrentUser, hasStoredSession } from '../services/auth'
 
 
 
@@ -112,7 +112,7 @@ router.beforeEach(async (to) => {
     return true
   }
 
-  if (!currentUser.value) {
+  if (!currentUser.value && hasStoredSession()) {
     await fetchCurrentUser()
   }
 

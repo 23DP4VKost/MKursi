@@ -14,10 +14,10 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { currentUser, fetchCurrentUser } from '../services/auth'
+import { currentUser, fetchCurrentUser, hasStoredSession } from '../services/auth'
 
 onMounted(async () => {
-  if (!currentUser.value) {
+  if (!currentUser.value && hasStoredSession()) {
     await fetchCurrentUser()
   }
 })

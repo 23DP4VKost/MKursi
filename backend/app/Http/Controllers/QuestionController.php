@@ -22,7 +22,7 @@ class QuestionController extends Controller
         ]);
 
         $question = UserQuestion::query()->create([
-            'user_id' => $request->user()->id,
+            'user_id' => $request->user()?->id,
             'question' => $validated['question'],
             'status' => 'pending',
         ]);

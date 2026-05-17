@@ -110,6 +110,7 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import { api } from '../services/api'
+import { hasStoredSession } from '../services/auth'
 
 interface UserQuestion {
   id: number
@@ -137,6 +138,12 @@ const deletingId = ref<number | null>(null)
 const loadQuestions = async () => {
   loading.value = true
   loadError.value = ''
+
+  if (!hasStoredSession()) {
+    loadError.value = 'Lai skatītu jautājumus, piesakies savā kontā.'
+    loading.value = false
+    return
+  }
 
   try {
     const { data } = await api.get<UserQuestion[]>('/questions/my')

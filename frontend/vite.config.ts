@@ -9,7 +9,6 @@ export default defineConfig({
     emptyOutDir: true,
     chunkSizeWarningLimit: 1000,
     sourcemap: false,
-    minify: 'terser',
   },
   resolve: {
     alias: {

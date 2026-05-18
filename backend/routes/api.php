@@ -32,6 +32,7 @@ Route::middleware([
 	Route::get('/tasks', [TaskController::class, 'index']);
 	Route::post('/register', [AuthController::class, 'register']);
 	Route::post('/login', [AuthController::class, 'login']);
+	Route::post('/token', [AuthController::class, 'getToken']); 
 
 	Route::get('/topics', [TopicController::class, 'index']);
 	Route::get('/topics/{topic}/theories', [TheoryController::class, 'index']);
@@ -42,7 +43,6 @@ Route::middleware([
 
 	Route::middleware('auth')->group(function () {
 		Route::post('/logout', [AuthController::class, 'logout']);
-		Route::get('/token', [AuthController::class, 'getToken']);
 		Route::delete('/profile', [AuthController::class, 'destroy']);
 		Route::get('/profile', [AuthController::class, 'profile']);
 

@@ -148,9 +148,16 @@ const loadQuestions = async () => {
   try {
     const { data } = await api.get<UserQuestion[]>('/questions/my')
     questions.value = data
-  } catch (error) {
-    console.error(error)
-    loadError.value = 'Neizdevās ielādēt jautājumus.'
+  } catch (error: any) {
+    console.error('Load questions error:', error)
+    const status = error.response?.status
+    const message = error.response?.data?.message
+    
+    if (status === 401) {
+      loadError.value = 'Sesija beigusies. Lūdzu, piesakies vēlreiz.'
+    } else {
+      loadError.value = message || 'Neizdevās ielādēt jautājumus.'
+    }
   } finally {
     loading.value = false
   }

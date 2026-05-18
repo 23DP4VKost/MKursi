@@ -7,6 +7,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\TheoryController;
+use App\Http\Middleware\AuthenticateWithToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Session\Middleware\StartSession;
@@ -16,6 +17,7 @@ Route::middleware([
 	EncryptCookies::class,
 	AddQueuedCookiesToResponse::class,
 	StartSession::class,
+	AuthenticateWithToken::class,
 ])->group(function () {
 		Route::get('/online-users', function () {
 			$threshold = now()->subMinutes(5)->timestamp;
@@ -40,6 +42,7 @@ Route::middleware([
 
 	Route::middleware('auth')->group(function () {
 		Route::post('/logout', [AuthController::class, 'logout']);
+		Route::get('/token', [AuthController::class, 'getToken']);
 		Route::delete('/profile', [AuthController::class, 'destroy']);
 		Route::get('/profile', [AuthController::class, 'profile']);
 

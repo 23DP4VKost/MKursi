@@ -32,6 +32,7 @@ class TheoryController extends Controller
 
         $theory = $topic->theories()->create([
             'subtopic_name' => $validated['subtopic_name'],
+            'content' => $validated['content'] ?? '',
         ]);
 
         $this->writeTheoryContent($theory->subtopic_name, $validated['content'] ?? '');
@@ -53,6 +54,7 @@ class TheoryController extends Controller
 
         $theory->update([
             'subtopic_name' => $validated['subtopic_name'],
+            'content' => $validated['content'] ?? '',
         ]);
 
         $previousPath = $this->resolveTheoryContentPath($previousSubtopicName);

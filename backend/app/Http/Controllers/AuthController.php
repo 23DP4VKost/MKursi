@@ -10,6 +10,13 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    private function generateToken(User $user): string
+    {
+        $token = Str::random(80);
+        $user->update(['api_token' => $token]);
+        return $token;
+    }
+
     public function register(Request $request)
     {
         $validated = $request->validate([
@@ -33,9 +40,11 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
+        $token = $this->generateToken($user);
 
         return response()->json([
             'user' => $user,
+            'token' => $token,
         ], 201);
     }
 
@@ -50,8 +59,29 @@ class AuthController extends Controller
             return response()->json(['message' => 'Nederīgi dati'], 401);
         }
 
+        $user = $request->user();
+        $token = $this->generateToken($user);
+
         return response()->json([
-            'user' => $request->user(),
+            'user' => $user,
+            'token' => $token,
+        ]);
+    }
+
+    public function getToken(Request $request)
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Nav autentificēta lietotāja'], 401);
+        }
+
+        // Generate new token for current user
+        $token = $this->generateToken($user);
+
+        return response()->json([
+            'user' => $user,
+            'token' => $token,
         ]);
     }
 

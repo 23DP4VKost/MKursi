@@ -19,8 +19,10 @@
 
 <script setup>
 import { ref } from 'vue'
-import { api } from '@/services/api'
+import { useRouter } from 'vue-router'
+import { register } from '@/services/auth'
 
+const router = useRouter()
 const email = ref('')
 const password = ref('')
 const error = ref('')
@@ -40,14 +42,12 @@ const handleSubmit = async () => {
   }
 
   try {
-    await api.post('/register', { 
-      email: email.value, 
-      password: password.value 
-    })
-
+    await register(email.value, password.value)
     success.value = true
     email.value = ''
     password.value = ''
+    const redirectTo = '/profile'
+    router.push(redirectTo)
   } catch (err) {
     error.value = err?.response?.data?.message || 'Reģistrācija neizdevās'
   }

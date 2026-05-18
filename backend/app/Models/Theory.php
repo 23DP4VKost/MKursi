@@ -15,6 +15,7 @@ class Theory extends Model
     protected $fillable = [
         'subtopic_name',
         'topic_id',
+        'content',
     ];
 
     public function topic(): BelongsTo

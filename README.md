@@ -84,6 +84,3 @@ Piezīme: precīzus maršrutus skatiet `backend/routes/api.php`.
 
 ---
 
-
-***
-+Faila atrašanās vieta: [README.md](README.md)
